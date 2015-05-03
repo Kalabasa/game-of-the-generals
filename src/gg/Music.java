@@ -36,6 +36,7 @@ public class Music {
 	public static void stop(){
 		if(player != null){
 			player.close();
+			player = null;
 		}
 	}
 
