@@ -21,10 +21,7 @@ public class MainFrame extends JFrame {
 		setLocationRelativeTo(null);
 		setResizable(false);
 
-		menuPanel = new MenuPanel(this);
-		setPanel(menuPanel);
-		
-		Music.play("Omens.mp3");
+		returnToMainMenu();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
@@ -43,6 +40,8 @@ public class MainFrame extends JFrame {
 	public void newGame(){
 		gamePanel = new GamePanel(this);
 		setPanel(gamePanel);
+		
+		Music.play("Imminent Threat.mp3");
 	}
 	
 	public void instructions(){
@@ -58,5 +57,7 @@ public class MainFrame extends JFrame {
 	public void returnToMainMenu() {
 		menuPanel = new MenuPanel(this);
 		setPanel(menuPanel);
+		
+		Music.play("Omens.mp3");
 	}
 }
