@@ -15,7 +15,7 @@ public class InstructionsPanel2 extends JPanel {
 	public InstructionsPanel2(final MainFrame mainFrame) {
 		super(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		
-		ImageIcon instructionsBg2 = new ImageIcon("res/pieces2.png");
+		ImageIcon instructionsBg2 = new ImageIcon("res/playingpieces2.png");
 		JLabel instructionsLabel2 = new JLabel(instructionsBg2);
 		add(instructionsLabel2);
 		
