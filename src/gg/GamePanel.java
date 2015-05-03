@@ -64,7 +64,6 @@ public class GamePanel extends JPanel {
 		JButton pieceButton = new JButton(pieceIcon);
 		pieceButton.setContentAreaFilled(false);
 		pieceButton.setBorderPainted(false);
-		pieceButton.setBorder(null);
 		pieceButton.setBounds(x, y, pieceIcon.getIconWidth(),
 				pieceIcon.getIconHeight());
 		pieceButton.addActionListener(new ActionListener() {
