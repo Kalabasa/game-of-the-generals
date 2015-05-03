@@ -23,6 +23,8 @@ public class MainFrame extends JFrame {
 
 		menuPanel = new MenuPanel(this);
 		setPanel(menuPanel);
+		
+		Music.play("Omens.mp3");
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
