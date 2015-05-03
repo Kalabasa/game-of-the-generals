@@ -11,16 +11,16 @@ public class Board {
 	
 	public Board() {
 		piece = new Piece[HEIGHT][WIDTH];
-		initializePieces();
+		clearBoard();
 	}
 	
 	
 
-	public void initializePiece(boolean team, int rank, int x, int y) {
-		piece[x][y] = new Piece(team, rank);
+	public void initializePiece(boolean team, int rank, int row, int col) {
+		piece[row][col] = new Piece(team, rank);
 	}
 	
-	private void initializePieces() {
+	private void clearBoard() {
 		for (int i = 0; i < HEIGHT; i++) {
 			for (int j = 0; j < WIDTH; j++) {
 				piece[i][j] = null;
@@ -28,31 +28,31 @@ public class Board {
 		}
 	}
 	
-	public Piece getPieceAt(int x, int y){
-		return piece[x][y];
+	public Piece getPieceAt(int row, int col){
+		return piece[row][col];
 		
 	}
 	
-	public void move(int x, int y, int newX, int newY){
-		if(piece[newX][newY] == null){
-			piece[newX][newY] = piece[x][y];
+	public void move(int row, int col, int newRow, int newCol){
+		if(piece[newRow][newCol] == null){
+			piece[newRow][newCol] = piece[row][col];
 		} else{
-			int result = didChallengerWin(x, y, newX, newY);
+			int result = didChallengerWin(row, col, newRow, newCol);
 			if (result == 1) { 					// challenger won
-				piece[newX][newY] = piece[x][y];
-				piece[x][y] = null;
+				piece[newRow][newCol] = piece[row][col];
+				piece[row][col] = null;
 			} else if (result == -1) { 			// defender won
-				piece[x][y] = null;
+				piece[row][col] = null;
 			} else { 							// draw
-				piece[newX][newY] = null;
-				piece[x][y] = null;
+				piece[newRow][newCol] = null;
+				piece[row][col] = null;
 			}
 		}
 	}
 	
-	private int didChallengerWin(int x, int y, int newX, int newY) {
-		int defender = piece[newX][newY].getPieceRank();
-		int challenger = piece[x][y].getPieceRank();
+	private int didChallengerWin(int row, int col, int newRow, int newCol) {
+		int defender = piece[newRow][newCol].getPieceRank();
+		int challenger = piece[row][col].getPieceRank();
 		
 		if(challenger == 14 && defender == 1) {
 			return -1;
@@ -62,7 +62,7 @@ public class Board {
 		}
 			
 		if (challenger == defender) {
-			if(piece[x][y].getPieceRank() == 0){
+			if(piece[row][col].getPieceRank() == 0){
 				return 1;
 			}
 			return 0;

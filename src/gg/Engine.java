@@ -29,26 +29,26 @@ public class Engine {
 		
 	}
 	
-	public boolean setAPiece(boolean team, int rank, int x, int y) {
-		if (validPlacement(team, x, y)) {
-			board.initializePiece(team, rank, x, y);
+	public boolean setAPiece(boolean team, int rank, int row, int col) {
+		if (validPlacement(team, row, col)) {
+			board.initializePiece(team, rank, row, col);
 			return true;
 		} else {
 			return false;
 		}
 	}
 	
-	private boolean validPlacement(boolean team, int x, int y) {
+	private boolean validPlacement(boolean team, int row, int col) {
 		int range = 3;
 	
 		if (team) { // white
-			if (x < range && x >= 0) {
+			if (row < range && row >= 0) {
 				return true;
 			} else {
 				return false;
 			}
 		} else {
-			if (x < board.getHEIGHT() && x >= board.getHEIGHT() - range) {
+			if (row < board.getHEIGHT() && row >= board.getHEIGHT() - range) {
 				return true;
 			} else {
 				return false;
@@ -56,35 +56,45 @@ public class Engine {
 		}
 	}
 
-	public void play(boolean team, int x, int y, int newX, int newY) {
+	public void play(boolean team, int row, int col, int newRow, int newCol) {
+		if (board.getPieceAt(row, col) == null) {
+			System.out.println("nothing to move, baka!");
+			return;
+		}
+		
+		System.out.println(row + " " + col + " to " + newRow + " " + newCol);
 		boolean isChallengerFlag = false, isDefenderFlag = false;
 		
 		// TODO get user input
 		
-		if (isMovePossible(team, x, y, newX, newY)){
-			if (board.getPieceAt(x,y).getPieceRank() == 0){
+		if (isMovePossible(team, row, col, newRow, newCol)){
+			
+			if (board.getPieceAt(row,col).getPieceRank() == 0){ // check kung dulo na
 				isChallengerFlag = true;
-				if ((team && newX == board.getHEIGHT() - 1 || !team && newX == 0) && 
-						(board.getPieceAt(newX, newY + 1) != null || board.getPieceAt(newX, newY - 1) != null)) {
+				if ((team && newRow == board.getHEIGHT() - 1 || !team && newRow == 0) && 
+						(board.getPieceAt(newRow, newCol + 1) != null || board.getPieceAt(newRow, newCol - 1) != null)) {
 					//TODO insert prompt here 
 					return;
 				}
 			} 
-			if (board.getPieceAt(newX,newY).getPieceRank() == 0){
+			if (board.getPieceAt(newRow, newCol) != null && board.getPieceAt(newRow,newCol).getPieceRank() == 0 ){ 
 				isDefenderFlag = true;
 			}
 			
-			if (isDefenderFlag){
+			if (isDefenderFlag){ // 
+				System.out.println("challenger");
 				isFinished = true;
 				winner = team;
 				
-			} else if (!isDefenderFlag && isChallengerFlag){
+			} else if (!isDefenderFlag && isChallengerFlag && board.getPieceAt(newRow,newCol) != null){
+				System.out.println("defender");
 				isFinished = true;
 				winner = !team;
 			}
-			board.move(x, y, newX, newY);
+			board.move(row, col, newRow, newCol);
 		} else {
 			//TODO insert prompt here
+			System.out.println("cant move here noob");
 		}
 	}
 	
@@ -92,9 +102,16 @@ public class Engine {
 		
 	}
 	
-	private boolean isMovePossible(boolean team, int x, int y, int newX, int newY) {
-		if ((board.getPieceAt(x, y).getTeam() != team) // check if you are moving your own piece
-			|| (team == board.getPieceAt(newX, newY).getTeam())) { // check if you are eating your own piece
+	private boolean isMovePossible(boolean team, int row, int col, int newRow, int newCol) {
+
+		if (Math.abs(row - newRow) + Math.abs(col - newCol) != 1) { // check if move too far
+			return false;
+		}
+		if (board.getPieceAt(newRow, newCol) == null) {
+			return true;
+		}
+		if ((board.getPieceAt(row, col).getTeam() != team) // check if you are moving your own piece
+			|| (team == board.getPieceAt(newRow, newCol).getTeam())) { // check if you are eating your own piece
 				return false;
 		} else {
 			return true;
