@@ -5,6 +5,9 @@ public class Board {
 	private Piece[][] piece;
 	private final int WIDTH = 9;
 	private final int HEIGHT = 8;
+
+	private final int[] STARTING_PIECES = {0, 1, 1, 1, 1, 1, 1, 2, 3, 4, 5, 6, 7,
+										8, 9, 10, 11, 12, 13, 14, 14};
 	
 	public Board() {
 		piece = new Piece[HEIGHT][WIDTH];
@@ -13,7 +16,7 @@ public class Board {
 	
 	
 
-	private void initializePiece(boolean team, int rank, int x, int y) {
+	public void initializePiece(boolean team, int rank, int x, int y) {
 		piece[x][y] = new Piece(team, rank);
 	}
 	
@@ -27,6 +30,7 @@ public class Board {
 	
 	public Piece getPieceAt(int x, int y){
 		return piece[x][y];
+		
 	}
 	
 	public void move(int x, int y, int newX, int newY){
@@ -67,6 +71,18 @@ public class Board {
 		} else {
 			return -1;
 		}
+	}
+
+	public int[] getSTARTING_PIECES() {
+		return STARTING_PIECES;
+	}
+	
+	public int getWIDTH() {
+		return WIDTH;
+	}
+
+	public int getHEIGHT() {
+		return HEIGHT;
 	}
 
 }
