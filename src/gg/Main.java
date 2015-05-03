@@ -7,10 +7,10 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		Piece piece = new Piece();
-		System.out.println(piece.getPieceRank());
+		// Piece piece = new Piece();
+		// System.out.println(piece.getPieceRank());
 		System.out.println("Hello world!");
-
+		Gui gui = new Gui();
 	}
 
 }
