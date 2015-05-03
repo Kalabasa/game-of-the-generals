@@ -43,7 +43,9 @@ public class Engine {
 	
 	private boolean validPlacement(boolean team, int row, int col) {
 		int range = 3;
-	
+		if (board.getPieceAt(row, col) != null) {
+			return false;
+		}
 		if (team) { // white
 			if (row < range && row >= 0) {
 				return true;
