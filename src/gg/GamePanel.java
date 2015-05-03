@@ -15,6 +15,8 @@ public class GamePanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	private Engine engine;
+	
+	private Piece selectedPiece = null;
 
 	public GamePanel(final MainFrame mainFrame) {
 		super(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -52,6 +54,7 @@ public class GamePanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("YAAY");
+				//selectedPiece = 
 			}
 		});
 		
