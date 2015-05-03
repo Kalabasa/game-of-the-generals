@@ -19,23 +19,6 @@ public class GamePanel extends JPanel {
 
 	private Piece selectedPiece = null;
 	
-	private static final ImageIcon images[][] = new ImageIcon[][]{
-		{new ImageIcon("/res/blackpiece0.png"), new ImageIcon("/res/whitepiece0.png")},
-		{new ImageIcon("/res/blackpiece1.png"), new ImageIcon("/res/whitepiece1.png")},
-		{new ImageIcon("/res/blackpiece2.png"), new ImageIcon("/res/whitepiece2.png")},
-		{new ImageIcon("/res/blackpiece3.png"), new ImageIcon("/res/whitepiece3.png")},
-		{new ImageIcon("/res/blackpiece4.png"), new ImageIcon("/res/whitepiece4.png")},
-		{new ImageIcon("/res/blackpiece5.png"), new ImageIcon("/res/whitepiece5.png")},
-		{new ImageIcon("/res/blackpiece6.png"), new ImageIcon("/res/whitepiece6.png")},
-		{new ImageIcon("/res/blackpiece7.png"), new ImageIcon("/res/whitepiece7.png")},
-		{new ImageIcon("/res/blackpiece8.png"), new ImageIcon("/res/whitepiece8.png")},
-		{new ImageIcon("/res/blackpiece9.png"), new ImageIcon("/res/whitepiece9.png")},
-		{new ImageIcon("/res/blackpiece10.png"), new ImageIcon("/res/whitepiece10.png")},
-		{new ImageIcon("/res/blackpiece11.png"), new ImageIcon("/res/whitepiece11.png")},
-		{new ImageIcon("/res/blackpiece12.png"), new ImageIcon("/res/whitepiece12.png")},
-		{new ImageIcon("/res/blackpiece13.png"), new ImageIcon("/res/whitepiece13.png")},
-		{new ImageIcon("/res/blackpiece14.png"), new ImageIcon("/res/whitepiece14.png")}
-	};
 
 	public GamePanel(final MainFrame mainFrame) {
 		super(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -78,9 +61,14 @@ public class GamePanel extends JPanel {
 				tileButton.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
+						// TESTCOED
 						if(selectedPiece != null){
+							System.out.println("SETAPIECE EXECUTED");
+							System.out.println(row + "," + col);
 							engine.setAPiece(selectedPiece.getTeam(), selectedPiece.getPieceRank(), row, col);
 						}
+						
+						updateGrid();
 					}
 				});
 			}
@@ -92,9 +80,9 @@ public class GamePanel extends JPanel {
 	}
 	
 	public JButton PaintPieces(int x, int y, String color, final int rank) {
-		ImageIcon pieceBg = images[rank][color == "white" ? 1 : 0];
+		ImageIcon pieceBg = new ImageIcon(getImagePath(color, rank));
 		JLabel pieceLabel = new JLabel(pieceBg);
-		ImageIcon pieceIcon = new ImageIcon("res/" + color + "piece" + rank + ".png");
+		ImageIcon pieceIcon = new ImageIcon(getImagePath(color, rank));
 		JButton pieceButton = new JButton(pieceIcon);
 		pieceButton.setContentAreaFilled(false);
 		pieceButton.setBorderPainted(false);
@@ -113,13 +101,20 @@ public class GamePanel extends JPanel {
 		return pieceButton;
 	}
 
+	private String getImagePath(String color, int rank) {
+		return "res/" + color + "piece" + rank + ".png";
+	}
+
 	public void updateGrid(){
 		for(int x=0; x<9; x++){
 			for(int y=0; y<8; y++){
 				Piece piece = engine.board.getPieceAt(y, x);
 				JButton button = grid[x][y];
+				System.out.println(y + "," + x);
+				System.out.println(piece == null ? "null" : piece.getPieceRank());
 				if(piece != null){
-					ImageIcon image = images[piece.getPieceRank()][piece.getTeam() ? 1 : 0];
+					ImageIcon image = new ImageIcon(getImagePath(piece.getTeam() ? "white" : "black", piece.getPieceRank()));
+					System.out.println("SETICON YES");
 					button.setIcon(image);
 				}else{
 					button.setIcon(null);
