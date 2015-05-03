@@ -33,12 +33,24 @@ public class GamePanel extends JPanel {
 				boardBg.getIconHeight());
 		gameLabel.add(boardLabel);
 
-		int j;
 		for (int i = 0; i < 15; i++) {
-			j = i+1;
-			gameLabel.add(PaintPieces(20, j*33+5, "black", i));
+			gameLabel.add(PaintPieces(20, (i+1)*33+5, "black", i));
 		}
 		
+		// Set up grid of buttons
+		for(int x=0; x<9; x++){
+			for(int y=0; y<8; y++){
+				JButton tileButton = new JButton(x + "," + y);
+				tileButton.setBounds(
+					boardLabel.getBounds().x + 8 + x * 64,
+					boardLabel.getBounds().y + 8 + y * 64
+						+ (y >= 4 ? 4 : 0),
+					64, 64);
+				gameLabel.add(tileButton);
+			}
+		}
+
+		gameLabel.setComponentZOrder(boardLabel, gameLabel.getComponentCount() - 1);
 		add(gameLabel);
 	}
 
@@ -54,6 +66,7 @@ public class GamePanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("YAAY");
+				Sound.click.play();
 				//selectedPiece = 
 			}
 		});

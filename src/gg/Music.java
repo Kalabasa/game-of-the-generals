@@ -9,9 +9,24 @@ public class Music {
 	
 	private static AdvancedPlayer player = null;
 	private static String currentFilename = null;
+	private static boolean muted = false;
+	
+	public static void toggleMute(){
+		if(!muted){
+			muted = true;
+			stop();
+		}else{
+			muted = false;
+			if(currentFilename != null){
+				String filename = currentFilename;
+				currentFilename = null;
+				play(filename);
+			}
+		}
+	}
 
 	public static void play(String filename){
-		if(!filename.equals(currentFilename)){
+		if(!muted && !filename.equals(currentFilename)){
 			currentFilename = filename;
 			DataInputStream dis = new DataInputStream(
 					Sound.class.getResourceAsStream("/" + filename));

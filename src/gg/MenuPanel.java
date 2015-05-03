@@ -57,8 +57,9 @@ public class MenuPanel extends JPanel {
 		sound.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				Music.toggleMute();
+				Sound.toggleMute();
 				Sound.click.play();
-				System.out.println("sound");
 			}
 		});
 
