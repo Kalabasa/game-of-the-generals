@@ -19,14 +19,8 @@ public class Engine {
 				
 	*/
 	public Engine(){
-
-	}
-	
-	public int[] start() {
 		board = new Board();
 		isFinished = false;
-		return board.getSTARTING_PIECES();
-		
 	}
 	
 	public boolean setAPiece(boolean team, int rank, int row, int col) {
