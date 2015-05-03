@@ -14,7 +14,7 @@ public class MenuPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	JButton start, exit, sound, instructions;
-
+	
 	public MenuPanel(final MainFrame mainFrame) {
 		super(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		
@@ -47,19 +47,27 @@ public class MenuPanel extends JPanel {
 			}
 		});
 
-		ImageIcon soundButton = new ImageIcon("res/sounds.png");
-		sound = new JButton(soundButton);
+		ImageIcon onSoundButton = new ImageIcon("res/sounds.png");
+		ImageIcon offSoundButton = new ImageIcon("res/nosounds.png");
+		
+		sound = new JButton(onSoundButton);
 		sound.setContentAreaFilled(false);
 		sound.setBorderPainted(false);
 		sound.setBorder(null);
-		sound.setBounds(720, 500, soundButton.getIconWidth(),
-				soundButton.getIconHeight());
+		sound.setBounds(720, 500, onSoundButton.getIconWidth(),
+				onSoundButton.getIconHeight());
 		sound.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Music.toggleMute();
 				Sound.toggleMute();
 				Sound.click.play();
+	
+				if (Sound.isMuted()) {
+					sound.setIcon(offSoundButton);
+				} else {
+					sound.setIcon(onSoundButton);
+				}
 			}
 		});
 
@@ -68,8 +76,8 @@ public class MenuPanel extends JPanel {
 		instructions.setContentAreaFilled(false);
 		instructions.setBorderPainted(false);
 		instructions.setBorder(null);
-		instructions.setBounds(650, 500, soundButton.getIconWidth(),
-				soundButton.getIconHeight());
+		instructions.setBounds(650, 500, onSoundButton.getIconWidth(),
+				onSoundButton.getIconHeight());
 		instructions.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
