@@ -95,7 +95,6 @@ public class Sound {
 	public static Clips click = load("click.wav", 2);
 	public static Clips fanfare = load("fanfare.wav", 2);
 	public static Clips pop = load("pop.wav", 2);
-	public static Clips whop = load("whop.wav", 2);
 
 	private static Clips load(String name, int count) {
 		try {
