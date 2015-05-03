@@ -5,6 +5,7 @@ public class Engine {
 	Board board;
 	boolean isFinished;
 	boolean winner; // 1 = white, 0 - black
+	boolean currentTurn;
 	//Piece pieceToMove = new Piece();
 	/*
 	
@@ -21,6 +22,7 @@ public class Engine {
 	public Engine(){
 		board = new Board();
 		isFinished = false;
+		currentTurn = true;
 	}
 	
 	public boolean setAPiece(boolean team, int rank, int row, int col) {
@@ -34,7 +36,9 @@ public class Engine {
 	
 	private boolean validPlacement(boolean team, int row, int col) {
 		int range = 3;
-	
+		if (board.getPieceAt(row, col) != null) {
+			return false;
+		}
 		if (team) { // white
 			if (row < range && row >= 0) {
 				return true;
@@ -50,10 +54,12 @@ public class Engine {
 		}
 	}
 
-	public void play(boolean team, int row, int col, int newRow, int newCol) {
+	public void play(boolean team, int row, int col, int newRow, int newCol) throws InvalidMoveException {
+		if (team != currentTurn) {
+			throw new InvalidMoveException("You cannot use your opponent's piece.");
+		}
 		if (board.getPieceAt(row, col) == null) {
-			System.out.println("nothing to move, baka!");
-			return;
+			throw new InvalidMoveException("You cannot move a piece that is already gone.");
 		}
 		
 		System.out.println(row + " " + col + " to " + newRow + " " + newCol);
@@ -87,9 +93,9 @@ public class Engine {
 			}
 			board.move(row, col, newRow, newCol);
 		} else {
-			//TODO insert prompt here
-			System.out.println("cant move here noob");
+			throw new InvalidMoveException("You can only move your piece one tile at a time within the board.");
 		}
+		currentTurn = !currentTurn;
 	}
 	
 	public void gameOver(boolean result) {
@@ -114,5 +120,17 @@ public class Engine {
 	
 	public void deleteBoard() {
 		board = null;
+	}
+	
+	class InvalidMoveException extends Exception
+	{
+	  /**
+		 * 
+		 */
+		private static final long serialVersionUID = -4763533106425767465L;
+
+	public InvalidMoveException(String message) {
+	    super(message);
+	  }
 	}
 }

@@ -55,7 +55,7 @@ public class GamePanel extends JPanel {
 						+ (y >= 4 ? 4 : 0),
 					64, 64);
 				gameLabel.add(tileButton);
-				
+
 				final int row = y;
 				final int col = x;
 				tileButton.addActionListener(new ActionListener() {
@@ -78,15 +78,12 @@ public class GamePanel extends JPanel {
 				gameLabel.getComponentCount() - 1);
 		add(gameLabel);
 	}
-	
+
 	public JButton PaintPieces(int x, int y, String color, final int rank) {
-		ImageIcon pieceBg = new ImageIcon(getImagePath(color, rank));
-		JLabel pieceLabel = new JLabel(pieceBg);
 		ImageIcon pieceIcon = new ImageIcon(getImagePath(color, rank));
 		JButton pieceButton = new JButton(pieceIcon);
 		pieceButton.setContentAreaFilled(false);
 		pieceButton.setBorderPainted(false);
-		pieceButton.setBorder(null);
 		pieceButton.setBounds(x, y, pieceIcon.getIconWidth(),
 				pieceIcon.getIconHeight());
 		pieceButton.addActionListener(new ActionListener() {
