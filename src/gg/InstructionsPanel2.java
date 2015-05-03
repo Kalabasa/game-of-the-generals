@@ -19,12 +19,26 @@ public class InstructionsPanel2 extends JPanel {
 		JLabel instructionsLabel2 = new JLabel(instructionsBg2);
 		add(instructionsLabel2);
 		
-		ImageIcon backButton = new ImageIcon("res/next.png");
+		ImageIcon returnButton = new ImageIcon("res/return.png");
+		JButton returnBut = new JButton(returnButton);
+		returnBut.setContentAreaFilled(false);
+		returnBut.setBorderPainted(false);
+		returnBut.setBorder(null);
+		returnBut.setBounds(620, 15, returnButton.getIconWidth(),
+				returnButton.getIconHeight());
+		returnBut.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				mainFrame.returnToMainMenu();
+			}
+		});
+		
+		ImageIcon backButton = new ImageIcon("res/back.png");
 		JButton back = new JButton(backButton);
 		back.setContentAreaFilled(false);
 		back.setBorderPainted(false);
 		back.setBorder(null);
-		back.setBounds(690, 15, backButton.getIconWidth(),
+		back.setBounds(700, 15, backButton.getIconWidth(),
 				backButton.getIconHeight());
 		back.addActionListener(new ActionListener() {
 			@Override
@@ -32,6 +46,9 @@ public class InstructionsPanel2 extends JPanel {
 				mainFrame.instructions();
 			}
 		});
+		
+		instructionsLabel2.add(returnBut);
 		instructionsLabel2.add(back);
+		
 	}
 }
