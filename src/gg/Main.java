@@ -10,6 +10,7 @@ public class Main {
 		// Piece piece = new Piece();
 		// System.out.println(piece.getPieceRank());
 		System.out.println("Hello world!");
+		Sound.touch();
 		new MainFrame();
 	}
 
