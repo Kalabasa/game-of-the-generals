@@ -33,10 +33,8 @@ public class GamePanel extends JPanel {
 				boardBg.getIconHeight());
 		gameLabel.add(boardLabel);
 
-		int j;
 		for (int i = 0; i < 15; i++) {
-			j = i+1;
-			gameLabel.add(PaintPieces(20, j*33+5, "black", i));
+			gameLabel.add(PaintPieces(20, (i+1)*33+5, "black", i));
 		}
 		
 		add(gameLabel);
