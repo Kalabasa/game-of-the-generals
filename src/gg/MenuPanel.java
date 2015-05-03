@@ -69,7 +69,7 @@ public class MenuPanel extends JPanel {
 		instructions.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("instructions");
+				mainFrame.instructions();
 			}
 		});
 
