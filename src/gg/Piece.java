@@ -11,8 +11,8 @@ public class Piece {
 		}
 	}
 	
-	public Piece(Rank rank, boolean team) {
-		this.rank = rank;
+	public Piece(boolean team, int rank) {
+		this.rank = Rank.values()[rank];
 		this.team = team;
 	}
 	
