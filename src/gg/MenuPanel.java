@@ -12,12 +12,12 @@ import javax.swing.JPanel;
 public class MenuPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	JButton start, exit, sound, instructions;
-	
+
 	public MenuPanel(final MainFrame mainFrame) {
 		super(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		
+
 		ImageIcon menuBg = new ImageIcon("res/menubg.png");
 		JLabel menuLabel = new JLabel(menuBg);
 
@@ -49,7 +49,7 @@ public class MenuPanel extends JPanel {
 
 		ImageIcon onSoundButton = new ImageIcon("res/sounds.png");
 		ImageIcon offSoundButton = new ImageIcon("res/nosounds.png");
-		
+
 		sound = new JButton(onSoundButton);
 		sound.setContentAreaFilled(false);
 		sound.setBorderPainted(false);
@@ -62,7 +62,7 @@ public class MenuPanel extends JPanel {
 				Music.toggleMute();
 				Sound.toggleMute();
 				Sound.click.play();
-	
+
 				if (Sound.isMuted()) {
 					sound.setIcon(offSoundButton);
 				} else {
@@ -86,7 +86,6 @@ public class MenuPanel extends JPanel {
 			}
 		});
 
-		
 		menuLabel.add(start);
 		menuLabel.add(exit);
 		menuLabel.add(sound);

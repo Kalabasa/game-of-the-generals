@@ -43,23 +43,22 @@ public class GamePanel extends JPanel {
 		}
 
 		// Set up grid of buttons
-		for(int x=0; x<9; x++){
-			for(int y=0; y<8; y++){
+		for (int x = 0; x < 9; x++) {
+			for (int y = 0; y < 8; y++) {
 				JButton tileButton = new JButton(y + "," + x);
-				tileButton.setBounds(
-					boardLabel.getBounds().x + 8 + x * 64,
-					boardLabel.getBounds().y + 8 + y * 64
-						+ (y >= 4 ? 4 : 0),
-					64, 64);
+				tileButton.setBounds(boardLabel.getBounds().x + 8 + x * 64,
+						boardLabel.getBounds().y + 8 + y * 64
+								+ (y >= 4 ? 4 : 0), 64, 64);
 				gameLabel.add(tileButton);
-				
+
 				final int row = y;
 				final int col = x;
 				tileButton.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						if(selectedPiece != null){
-							engine.setAPiece(selectedPiece.getTeam(), selectedPiece.getPieceRank(), row, col);
+						if (selectedPiece != null) {
+							engine.setAPiece(selectedPiece.getTeam(),
+									selectedPiece.getPieceRank(), row, col);
 						}
 					}
 				});
@@ -70,15 +69,13 @@ public class GamePanel extends JPanel {
 				gameLabel.getComponentCount() - 1);
 		add(gameLabel);
 	}
-	
+
 	public JButton PaintPieces(int x, int y, String color, final int rank) {
-		ImageIcon pieceBg = new ImageIcon("res/" + color + "piece" + ".png");
-		JLabel pieceLabel = new JLabel(pieceBg);
-		ImageIcon pieceIcon = new ImageIcon("res/" + color + "piece" + rank + ".png");
+		ImageIcon pieceIcon = new ImageIcon("res/" + color + "piece" + rank
+				+ ".png");
 		JButton pieceButton = new JButton(pieceIcon);
 		pieceButton.setContentAreaFilled(false);
 		pieceButton.setBorderPainted(false);
-		pieceButton.setBorder(null);
 		pieceButton.setBounds(x, y, pieceIcon.getIconWidth(),
 				pieceIcon.getIconHeight());
 		pieceButton.addActionListener(new ActionListener() {
