@@ -9,10 +9,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class MenuPanel extends JPanel {
-	
-	JButton start, exit, sound, instructions;
 
-	public MenuPanel() {
+	JButton start, exit, sound, instructions;
+	GamePanel gamePanel;
+
+	public MenuPanel(final JPanel parent) {
 		ImageIcon menuBg = new ImageIcon("res/menubg.png");
 		JLabel menuLabel = new JLabel(menuBg);
 
@@ -24,7 +25,11 @@ public class MenuPanel extends JPanel {
 		start.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("start");
+				parent.removeAll();
+				parent.revalidate();
+				parent.repaint();
+				gamePanel = new GamePanel();
+				parent.add(gamePanel);
 			}
 		});
 
@@ -36,7 +41,7 @@ public class MenuPanel extends JPanel {
 		exit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("exit");
+				System.exit(0);
 			}
 		});
 

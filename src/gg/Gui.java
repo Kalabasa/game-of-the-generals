@@ -3,9 +3,11 @@ package gg;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class Gui extends JFrame {
 
+	JPanel mainPanel;
 	MenuPanel menuPanel;
 
 	public Gui() {
@@ -15,11 +17,12 @@ public class Gui extends JFrame {
 		setResizable(false);
 		setLayout(new BorderLayout());
 
-		menuPanel = new MenuPanel();
-		add(menuPanel);
-		
+		mainPanel = new JPanel();
+		menuPanel = new MenuPanel(mainPanel);
+		mainPanel.add(menuPanel);
+		add(mainPanel);
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 	}
 }
-
