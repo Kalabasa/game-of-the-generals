@@ -7,8 +7,8 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
+		Piece piece = new Piece();
+		System.out.println(piece.getPieceRank());
 		System.out.println("Hello world!");
 
 	}

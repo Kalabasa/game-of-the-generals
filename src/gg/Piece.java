@@ -3,15 +3,32 @@ package gg;
 public class Piece {
 	private int posX;
 	private int posY;
-	private int rank;
+	private Rank rank;
+
+	private enum Rank {
+		FLAG, PRIVATE, SERGEANT, SECONDLIEUTENANT, FIRSTLIEUTENANT, CAPTAIN, MAJOR, LIEUTENANTCOLONEL, COLONEL, ONESTARGENERAL, TWOSTARGENERAL, THREESTARGENERAL, FOURSTARGENERAL, FIVESTARGENERAL, SPY;
+
+		public int getRank() {
+			return this.ordinal();
+		}
+	}
+
 	private int isAlive;
 	private boolean team; // 1 - white, 0 - black
+
+	public int getPieceRank() {
+		return rank.getRank();
+	}
+
+	public Piece() {
+		rank = rank.PRIVATE;
+	}
 
 	public Piece(int posX, int posY, int rank, int isAlive, boolean team) {
 		super();
 		this.posX = posX;
 		this.posY = posY;
-		this.rank = rank;
+		// this.rank = rank;
 		this.isAlive = isAlive;
 		this.team = team;
 	}
@@ -32,14 +49,6 @@ public class Piece {
 		this.posY = posY;
 	}
 
-	public int getRank() {
-		return rank;
-	}
-
-	public void setRank(int rank) {
-		this.rank = rank;
-	}
-
 	public int getIsAlive() {
 		return isAlive;
 	}
@@ -56,20 +65,13 @@ public class Piece {
 		this.team = team;
 	}
 
-	public void moveLeft() {
-		posX--;
+	public void move(int newX, int newY) {
+		this.posX = newX;
+		this.posY = newY;
 	}
 
-	public void moveRight() {
-		posX++;
-	}
-
-	public void moveUp() {
-		posY++;
-	}
-
-	public void moveDown() {
-		posY--;
+	public static String getSprite(int rank) {
+		return "piece" + rank;
 	}
 
 }
