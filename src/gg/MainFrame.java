@@ -12,6 +12,8 @@ public class MainFrame extends JFrame {
 	JPanel currentPanel = null;
 	MenuPanel menuPanel;
 	GamePanel gamePanel;
+	InstructionsPanel instructionsPanel;
+	InstructionsPanel2 instructionsPanel2;
 
 	public MainFrame() {
 		setTitle("Game of the Generals");
@@ -39,5 +41,20 @@ public class MainFrame extends JFrame {
 	public void newGame(){
 		gamePanel = new GamePanel(this);
 		setPanel(gamePanel);
+	}
+	
+	public void instructions(){
+		instructionsPanel = new InstructionsPanel(this);
+		setPanel(instructionsPanel);
+	}
+	
+	public void instructions2(){
+		instructionsPanel2 = new InstructionsPanel2(this);
+		setPanel(instructionsPanel2);
+	}
+	
+	public void returnToMainMenu() {
+		menuPanel = new MenuPanel(this);
+		setPanel(menuPanel);
 	}
 }
