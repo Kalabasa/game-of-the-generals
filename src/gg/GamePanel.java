@@ -6,7 +6,9 @@ import javax.swing.JPanel;
 
 public class GamePanel extends JPanel {
 
-	public GamePanel() {
+	private static final long serialVersionUID = 1L;
+
+	public GamePanel(final MainFrame mainFrame) {
 		ImageIcon boardBg = new ImageIcon("res/board.png");
 		JLabel boardLabel = new JLabel(boardBg);
 		add(boardLabel);

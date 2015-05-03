@@ -10,10 +10,11 @@ import javax.swing.JPanel;
 
 public class MenuPanel extends JPanel {
 
+	private static final long serialVersionUID = 1L;
+	
 	JButton start, exit, sound, instructions;
-	GamePanel gamePanel;
 
-	public MenuPanel(final JPanel parent) {
+	public MenuPanel(final MainFrame mainFrame) {
 		ImageIcon menuBg = new ImageIcon("res/menubg.png");
 		JLabel menuLabel = new JLabel(menuBg);
 
@@ -25,11 +26,7 @@ public class MenuPanel extends JPanel {
 		start.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				parent.removeAll();
-				parent.revalidate();
-				parent.repaint();
-				gamePanel = new GamePanel();
-				parent.add(gamePanel);
+				mainFrame.newGame();
 			}
 		});
 
