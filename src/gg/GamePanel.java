@@ -54,6 +54,7 @@ public class GamePanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("YAAY");
+				Sound.click.play();
 				//selectedPiece = 
 			}
 		});
