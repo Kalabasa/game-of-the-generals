@@ -1,5 +1,6 @@
 package gg;
 
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -15,6 +16,8 @@ public class MenuPanel extends JPanel {
 	JButton start, exit, sound, instructions;
 
 	public MenuPanel(final MainFrame mainFrame) {
+		super(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		
 		ImageIcon menuBg = new ImageIcon("res/menubg.png");
 		JLabel menuLabel = new JLabel(menuBg);
 
@@ -70,6 +73,7 @@ public class MenuPanel extends JPanel {
 			}
 		});
 
+		
 		menuLabel.add(start);
 		menuLabel.add(exit);
 		menuLabel.add(sound);

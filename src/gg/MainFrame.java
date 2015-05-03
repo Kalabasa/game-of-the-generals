@@ -1,7 +1,5 @@
 package gg;
 
-import java.awt.BorderLayout;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -20,11 +18,7 @@ public class MainFrame extends JFrame {
 		setSize(800, 600);
 		setLocationRelativeTo(null);
 		setResizable(false);
-		setLayout(new BorderLayout());
 
-		mainPanel = new JPanel();
-		add(mainPanel);
-		
 		menuPanel = new MenuPanel(this);
 		setPanel(menuPanel);
 
@@ -34,9 +28,9 @@ public class MainFrame extends JFrame {
 	
 	private void setPanel(JPanel panel){
 		if(currentPanel != null)
-			mainPanel.remove(currentPanel);
+			remove(currentPanel);
 		currentPanel = panel;
-		mainPanel.add(panel);
+		add(panel);
 
 		revalidate();
 		repaint();
