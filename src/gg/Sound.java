@@ -132,4 +132,9 @@ public class Sound {
 
 	public static void touch() {
 	}
+	
+	public static boolean isMuted() {
+		return muted;
+	}
+	
 }
