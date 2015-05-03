@@ -70,7 +70,7 @@ public class GamePanel extends JPanel {
 		add(gameLabel);
 	}
 
-	public JButton PaintPieces(int x, int y, String color, int rank) {
+	public JButton PaintPieces(int x, int y, String color, final int rank) {
 		ImageIcon pieceIcon = new ImageIcon("res/" + color + "piece" + rank
 				+ ".png");
 		JButton pieceButton = new JButton(pieceIcon);
