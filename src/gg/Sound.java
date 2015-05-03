@@ -10,6 +10,13 @@ import java.util.List;
 import javax.sound.sampled.*;
 
 public class Sound {
+
+	private static boolean muted = false;
+	
+	public static void toggleMute(){
+		muted = !muted;
+	}
+	
 	public static class Clips {
 		public Clip[] clips;
 		private int p;
@@ -34,7 +41,7 @@ public class Sound {
 		}
 
 		public void play(float volume, float pan) {
-			if (clips == null)
+			if (clips == null || muted)
 				return;
 
 			p++;
