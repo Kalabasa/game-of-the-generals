@@ -29,6 +29,7 @@ public class MenuPanel extends JPanel {
 		start.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				Sound.click.play();
 				mainFrame.newGame();
 			}
 		});
@@ -41,6 +42,7 @@ public class MenuPanel extends JPanel {
 		exit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				Sound.click.play();
 				System.exit(0);
 			}
 		});
@@ -55,6 +57,7 @@ public class MenuPanel extends JPanel {
 		sound.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				Sound.click.play();
 				System.out.println("sound");
 			}
 		});
@@ -70,6 +73,7 @@ public class MenuPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				mainFrame.instructions();
+				Sound.click.play();
 			}
 		});
 
