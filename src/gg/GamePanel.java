@@ -70,17 +70,11 @@ public class GamePanel extends JPanel {
 				gameLabel.getComponentCount() - 1);
 		add(gameLabel);
 	}
-
-<<<<<<< HEAD
-	public JLabel PaintPieces(int x, int y, String color, final int rank) {
+	
+	public JButton PaintPieces(int x, int y, String color, final int rank) {
 		ImageIcon pieceBg = new ImageIcon("res/" + color + "piece" + ".png");
 		JLabel pieceLabel = new JLabel(pieceBg);
 		ImageIcon pieceIcon = new ImageIcon("res/" + color + "piece" + rank + ".png");
-=======
-	public JButton PaintPieces(int x, int y, String color, int rank) {
-		ImageIcon pieceIcon = new ImageIcon("res/" + color + "piece" + rank
-				+ ".png");
->>>>>>> 734f2d46c40b360438da9969ef4a1d6ce80eea99
 		JButton pieceButton = new JButton(pieceIcon);
 		pieceButton.setContentAreaFilled(false);
 		pieceButton.setBorderPainted(false);
@@ -92,11 +86,7 @@ public class GamePanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("YAAY");
 				Sound.click.play();
-<<<<<<< HEAD
-				selectedPiece = new Piece(false, rank); 
-=======
-				// selectedPiece =
->>>>>>> 734f2d46c40b360438da9969ef4a1d6ce80eea99
+				selectedPiece = new Piece(false, rank);
 			}
 		});
 
