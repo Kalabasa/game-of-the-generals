@@ -48,7 +48,7 @@ public class GamePanel extends JPanel {
 		// Set up grid of buttons
 		for(int x=0; x<9; x++){
 			for(int y=0; y<8; y++){
-				JButton tileButton = grid[x][y] = new JButton(y + "," + x);
+				JButton tileButton = grid[x][y] = new JButton();
 				tileButton.setBounds(
 					boardLabel.getBounds().x + 8 + x * 64,
 					boardLabel.getBounds().y + 8 + y * 64
