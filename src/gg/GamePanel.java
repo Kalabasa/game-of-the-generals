@@ -40,17 +40,22 @@ public class GamePanel extends JPanel {
 		// Set up grid of buttons
 		for(int x=0; x<9; x++){
 			for(int y=0; y<8; y++){
-				JButton tileButton = new JButton(x + "," + y);
+				JButton tileButton = new JButton(y + "," + x);
 				tileButton.setBounds(
 					boardLabel.getBounds().x + 8 + x * 64,
 					boardLabel.getBounds().y + 8 + y * 64
 						+ (y >= 4 ? 4 : 0),
 					64, 64);
 				gameLabel.add(tileButton);
+				
+				final int row = y;
+				final int col = x;
 				tileButton.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						System.out.println("Clicky");
+						if(selectedPiece != null){
+							engine.setAPiece(selectedPiece.getTeam(), selectedPiece.getPieceRank(), row, col);
+						}
 					}
 				});
 			}
