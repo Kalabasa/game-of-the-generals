@@ -47,8 +47,8 @@ public class MenuPanel extends JPanel {
 			}
 		});
 
-		ImageIcon onSoundButton = new ImageIcon("res/sounds.png");
-		ImageIcon offSoundButton = new ImageIcon("res/nosounds.png");
+		final ImageIcon onSoundButton = new ImageIcon("res/sounds.png");
+		final ImageIcon offSoundButton = new ImageIcon("res/nosounds.png");
 		
 		sound = new JButton(onSoundButton);
 		sound.setContentAreaFilled(false);
