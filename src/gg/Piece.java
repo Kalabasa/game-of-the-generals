@@ -28,8 +28,10 @@ public class Piece {
 		this.team = team;
 	}
 
-	public static String getSprite(int rank) {
-		return "piece" + rank;
+	public static String getSprite(boolean team, int rank) {
+		if (!team)
+			return  "blackpiece" + rank;
+		return  "whitepiece" + rank;
 	}
 
 }
