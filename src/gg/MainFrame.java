@@ -41,7 +41,7 @@ public class MainFrame extends JFrame {
 		gamePanel = new GamePanel(this);
 		setPanel(gamePanel);
 		
-		Music.play("Imminent Threat.mp3");
+		Music.play("Omens.mp3");
 	}
 	
 	public void instructions(){
@@ -58,6 +58,6 @@ public class MainFrame extends JFrame {
 		menuPanel = new MenuPanel(this);
 		setPanel(menuPanel);
 		
-		Music.play("Omens.mp3");
+		Music.play("March of May_3.mp3");
 	}
 }
