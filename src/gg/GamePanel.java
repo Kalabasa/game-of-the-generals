@@ -47,6 +47,12 @@ public class GamePanel extends JPanel {
 						+ (y >= 4 ? 4 : 0),
 					64, 64);
 				gameLabel.add(tileButton);
+				tileButton.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						System.out.println("Clicky");
+					}
+				});
 			}
 		}
 
@@ -54,7 +60,7 @@ public class GamePanel extends JPanel {
 		add(gameLabel);
 	}
 
-	public JLabel PaintPieces(int x, int y, String color, int rank) {
+	public JLabel PaintPieces(int x, int y, String color, final int rank) {
 		ImageIcon pieceBg = new ImageIcon("res/" + color + "piece" + ".png");
 		JLabel pieceLabel = new JLabel(pieceBg);
 		ImageIcon pieceIcon = new ImageIcon("res/" + color + "piece" + rank + ".png");
@@ -67,7 +73,7 @@ public class GamePanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("YAAY");
 				Sound.click.play();
-				//selectedPiece = 
+				selectedPiece = new Piece(false, rank); 
 			}
 		});
 		
