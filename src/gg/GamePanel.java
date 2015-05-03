@@ -1,6 +1,5 @@
 package gg;
 
-import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,14 +12,14 @@ import javax.swing.JPanel;
 public class GamePanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private Engine engine;
-	
+
 	private Piece selectedPiece = null;
 
 	public GamePanel(final MainFrame mainFrame) {
 		super(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		
+
 		engine = new Engine();
 
 		ImageIcon gameBg = new ImageIcon("res/gamebg.png");
@@ -33,10 +32,16 @@ public class GamePanel extends JPanel {
 				boardBg.getIconHeight());
 		gameLabel.add(boardLabel);
 
-		for (int i = 0; i < 15; i++) {
-			gameLabel.add(PaintPieces(20, (i+1)*33+5, "black", i));
+		int j;
+		for (int i = 0; i < 8; i++) {
+			j = i + 1;
+			gameLabel.add(PaintPieces(20, j * 50, "black", i));
 		}
-		
+		for (int i = 8; i < 15; i++) {
+			j = i - 7;
+			gameLabel.add(PaintPieces(715, j * 50, "black", i));
+		}
+
 		// Set up grid of buttons
 		for(int x=0; x<9; x++){
 			for(int y=0; y<8; y++){
@@ -61,16 +66,25 @@ public class GamePanel extends JPanel {
 			}
 		}
 
-		gameLabel.setComponentZOrder(boardLabel, gameLabel.getComponentCount() - 1);
+		gameLabel.setComponentZOrder(boardLabel,
+				gameLabel.getComponentCount() - 1);
 		add(gameLabel);
 	}
 
+<<<<<<< HEAD
 	public JLabel PaintPieces(int x, int y, String color, final int rank) {
 		ImageIcon pieceBg = new ImageIcon("res/" + color + "piece" + ".png");
 		JLabel pieceLabel = new JLabel(pieceBg);
 		ImageIcon pieceIcon = new ImageIcon("res/" + color + "piece" + rank + ".png");
+=======
+	public JButton PaintPieces(int x, int y, String color, int rank) {
+		ImageIcon pieceIcon = new ImageIcon("res/" + color + "piece" + rank
+				+ ".png");
+>>>>>>> 734f2d46c40b360438da9969ef4a1d6ce80eea99
 		JButton pieceButton = new JButton(pieceIcon);
-		pieceButton.setBackground(Color.WHITE);
+		pieceButton.setContentAreaFilled(false);
+		pieceButton.setBorderPainted(false);
+		pieceButton.setBorder(null);
 		pieceButton.setBounds(x, y, pieceIcon.getIconWidth(),
 				pieceIcon.getIconHeight());
 		pieceButton.addActionListener(new ActionListener() {
@@ -78,12 +92,15 @@ public class GamePanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("YAAY");
 				Sound.click.play();
+<<<<<<< HEAD
 				selectedPiece = new Piece(false, rank); 
+=======
+				// selectedPiece =
+>>>>>>> 734f2d46c40b360438da9969ef4a1d6ce80eea99
 			}
 		});
-		
-		pieceLabel.add(pieceButton);
-		return pieceLabel;
+
+		return pieceButton;
 	}
-	
+
 }
