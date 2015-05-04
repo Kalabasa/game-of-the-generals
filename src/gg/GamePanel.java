@@ -105,14 +105,20 @@ public class GamePanel extends JPanel {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						// TESTCOED
-						if (placementPhase && selectedPiece != null) {
+						if (placementPhase){
 							Sound.click.play();
-							engine.setAPiece(selectedPiece.getTeam(),
-									selectedPiece.getPieceRank(), row, col);
+							if(selectedPiece != null) {
+								engine.setAPiece(selectedPiece.getTeam(),
+										selectedPiece.getPieceRank(), row, col);
+								selectedPiece = null;
+							}else{
+								engine.unSetAPiece(row, col);
+							}
+							
+							updateGilidPieces(gameLabel, true);
 						}
 
 						updateGrid();
-						updateGilidPieces(gameLabel, true);
 					}
 				});
 			}
