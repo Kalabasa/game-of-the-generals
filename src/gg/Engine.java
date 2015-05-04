@@ -1,6 +1,7 @@
 package gg;
 
 import java.util.LinkedList;
+import java.util.ListIterator;
 
 public class Engine {
 
@@ -27,9 +28,12 @@ public class Engine {
 	}
 
 	public void removePieceFromList(int rank) {
-		for (Piece p : listOfAvailablePieces) {
+		ListIterator<Piece> i = listOfAvailablePieces.listIterator();
+		while(i.hasNext()){
+			Piece p = i.next();
 			if (p.getPieceRank() == rank) {
-				listOfAvailablePieces.remove(p);
+				i.remove();
+				break;
 			}
 		}
 	}
