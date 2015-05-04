@@ -31,6 +31,7 @@ public class Board {
 	public void move(int row, int col, int newRow, int newCol) {
 		if (piece[newRow][newCol] == null) {
 			piece[newRow][newCol] = piece[row][col];
+			removePieceFromBoard(row, col);
 		} else {
 			int result = didChallengerWin(row, col, newRow, newCol);
 			if (result == 1) { // challenger won
