@@ -46,7 +46,7 @@ public class Engine {
 		return listOfAvailablePieces.isEmpty();
 	}
 
-	private boolean hasThisPiece(int rank) {
+	public boolean hasThisPiece(int rank) {
 		for (Piece p : listOfAvailablePieces) {
 			if (p.getPieceRank() == rank) {
 				return true;
