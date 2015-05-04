@@ -213,7 +213,7 @@ public class GamePanel extends JPanel {
 		gameLabel.repaint();
 	}
 
-	public JButton PaintPieces(int x, int y, String color, final int rank) {
+	public JButton PaintPieces(int x, int y, final String color, final int rank) {
 		ImageIcon pieceIcon = new ImageIcon(getImagePath(color, rank));
 		JButton pieceButton = new JButton(pieceIcon);
 		pieceButton.setContentAreaFilled(false);
