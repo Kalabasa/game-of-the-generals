@@ -3,6 +3,8 @@ package gg;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,6 +18,7 @@ public class GamePanel extends JPanel {
 	private Engine engine;
 
 	private JButton grid[][] = new JButton[9][8];
+	private List<JButton> gilidPieces = new LinkedList<>();
 
 	private Piece selectedPiece = null;
 
@@ -28,7 +31,7 @@ public class GamePanel extends JPanel {
 		engine = new Engine();
 
 		ImageIcon gameBg = new ImageIcon("res/gamebg.png");
-		JLabel gameLabel = new JLabel(gameBg);
+		final JLabel gameLabel = new JLabel(gameBg);
 
 		ImageIcon boardBg = new ImageIcon("res/board.png");
 		JLabel boardLabel = new JLabel(boardBg);
@@ -36,18 +39,6 @@ public class GamePanel extends JPanel {
 				(600 - boardBg.getIconHeight()) / 2, boardBg.getIconWidth(),
 				boardBg.getIconHeight());
 		gameLabel.add(boardLabel);
-
-		// GET MAH PIECES
-		engine.getMyPieces(true);
-		int j;
-		for (int i = 0; i < 8; i++) {
-			j = i + 1;
-			gameLabel.add(PaintPieces(20, j * 50, "white", i));
-		}
-		for (int i = 8; i < 15; i++) {
-			j = i - 7;
-			gameLabel.add(PaintPieces(715, j * 50, "white", i));
-		}
 		
 		//Set up a return button
 		ImageIcon returnButton = new ImageIcon("res/return2.png");
@@ -93,9 +84,7 @@ public class GamePanel extends JPanel {
 		});
 		
 		gameLabel.add(sound);
-		
 
-		
 		Music.play("Omens.mp3");
 
 		// Set up grid of buttons
@@ -123,14 +112,46 @@ public class GamePanel extends JPanel {
 						}
 
 						updateGrid();
+						updateGilidPieces(gameLabel, true);
 					}
 				});
 			}
 		}
 
+		engine.getMyPieces(true);
+		updateGilidPieces(gameLabel, true);
+
 		gameLabel.setComponentZOrder(boardLabel,
 				gameLabel.getComponentCount() - 1);
 		add(gameLabel);
+	}
+
+	private void updateGilidPieces(JLabel gameLabel, boolean team) {
+		for(JButton pb : gilidPieces){
+			gameLabel.remove(pb);
+		}
+		gilidPieces.clear();
+		
+		int j;
+		for (int i = 0; i < 8; i++) {
+			j = i + 1;
+			if(engine.hasThisPiece(i)){
+				JButton piece = PaintPieces(20, j * 50, team ? "white" : "black", i);
+				gilidPieces.add(piece);
+				gameLabel.add(piece);
+			}
+		}
+		for (int i = 8; i < 15; i++) {
+			j = i - 7;
+			if(engine.hasThisPiece(i)){
+				JButton piece = PaintPieces(715, j * 50, team ? "white" : "black", i);
+				gilidPieces.add(piece);
+				gameLabel.add(piece);
+			}
+		}
+		
+		gameLabel.invalidate();
+		gameLabel.repaint();
 	}
 
 	public JButton PaintPieces(int x, int y, String color, final int rank) {
