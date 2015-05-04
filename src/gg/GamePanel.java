@@ -30,7 +30,7 @@ public class GamePanel extends JPanel {
 		ImageIcon boardBg = new ImageIcon("res/board.png");
 		JLabel boardLabel = new JLabel(boardBg);
 		boardLabel.setBounds((800 - boardBg.getIconWidth()) / 2,
-				(570 - boardBg.getIconHeight()) / 2, boardBg.getIconWidth(),
+				(600 - boardBg.getIconHeight()) / 2, boardBg.getIconWidth(),
 				boardBg.getIconHeight());
 		gameLabel.add(boardLabel);
 
