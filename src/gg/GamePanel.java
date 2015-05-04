@@ -1,5 +1,6 @@
 package gg;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,6 +24,8 @@ public class GamePanel extends JPanel {
 	private Piece selectedPiece = null;
 
 	private boolean placementPhase = true;
+	
+	JButton done;
 
 
 	public GamePanel(final MainFrame mainFrame) {
@@ -84,7 +87,22 @@ public class GamePanel extends JPanel {
 		});
 		
 		gameLabel.add(sound);
-
+		
+		//Set up a done button
+		done = new JButton("DONE");
+		done.setBackground(Color.WHITE);
+		done.setBounds(710, 455, 70, 25);
+		done.setEnabled(false);
+		done.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("DONE");
+			}
+		});
+		
+		gameLabel.add(done);
+		
+		
 		Music.play("Omens.mp3");
 
 		// Set up grid of buttons
@@ -201,6 +219,13 @@ public class GamePanel extends JPanel {
 					button.setIcon(null);
 				}
 			}
+		}
+		
+		if(engine.isPieceListEmpty()) {
+			done.setEnabled(true);
+			placementPhase = false;
+		} else {
+			done.setEnabled(false);
 		}
 	}
 }
