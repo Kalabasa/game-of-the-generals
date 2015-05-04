@@ -63,6 +63,7 @@ public class GamePanel extends JPanel {
 					public void actionPerformed(ActionEvent e) {
 						// TESTCOED
 						if (selectedPiece != null) {
+							Sound.click.play();
 							engine.setAPiece(selectedPiece.getTeam(),
 									selectedPiece.getPieceRank(), row, col);
 						}
