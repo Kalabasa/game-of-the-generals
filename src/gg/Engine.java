@@ -23,6 +23,10 @@ public class Engine {
 		return currentTurn;
 	}
 
+	public void setCurrentTurn(boolean currentTurn) {
+		this.currentTurn = currentTurn;
+	}
+
 	public LinkedList<Piece> getListOfAvailablePieces() {
 		return listOfAvailablePieces;
 	}

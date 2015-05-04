@@ -1,8 +1,8 @@
 package gg;
 
+import gg.Engine.InvalidMoveException;
 
 import java.awt.Color;
-import gg.Engine.InvalidMoveException;
 import java.awt.FlowLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -28,9 +28,8 @@ public class GamePanel extends JPanel {
 	private Point selectedCell = null;
 
 	private boolean placementPhase = true;
-	
-	JButton done;
 
+	JButton done;
 
 	public GamePanel(final MainFrame mainFrame) {
 		super(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -46,10 +45,10 @@ public class GamePanel extends JPanel {
 				(600 - boardBg.getIconHeight()) / 2, boardBg.getIconWidth(),
 				boardBg.getIconHeight());
 		gameLabel.add(boardLabel);
-		
-		//Set up a return button
+
+		// Set up a return button
 		ImageIcon returnButton = new ImageIcon("res/return2.png");
-		
+
 		JButton returnBut = new JButton(returnButton);
 		returnBut.setContentAreaFilled(false);
 		returnBut.setBorderPainted(false);
@@ -62,10 +61,10 @@ public class GamePanel extends JPanel {
 				mainFrame.returnToMainMenu();
 			}
 		});
-		
+
 		gameLabel.add(returnBut);
-		
-		//Set up a sound button
+
+		// Set up a sound button
 		final ImageIcon onSoundButton = new ImageIcon("res/sounds.png");
 		final ImageIcon offSoundButton = new ImageIcon("res/nosounds.png");
 
@@ -89,10 +88,10 @@ public class GamePanel extends JPanel {
 				}
 			}
 		});
-		
+
 		gameLabel.add(sound);
-		
-		//Set up a done button
+
+		// Set up a done button
 		done = new JButton("DONE");
 		done.setBackground(Color.WHITE);
 		done.setBounds(710, 455, 70, 25);
@@ -100,12 +99,20 @@ public class GamePanel extends JPanel {
 		done.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("DONE");
+				if (engine.getCurrentTurn()) {
+					engine.setCurrentTurn(false);
+					engine.getMyPieces(false);
+					updateGilidPieces(gameLabel, false);
+					updateGrid();
+				} else {
+					engine.setCurrentTurn(true);
+					updateGrid();
+					// ready to play
+				}
 			}
 		});
-		
+
 		gameLabel.add(done);
-		
 		Music.play("Omens.mp3");
 
 		// Set up grid of buttons
@@ -126,32 +133,35 @@ public class GamePanel extends JPanel {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						// TESTCOED
-						if (placementPhase){
+						if (placementPhase) {
 							Sound.click.play();
-							if(selectedPiece != null) {
+							if (selectedPiece != null) {
 								engine.setAPiece(selectedPiece.getTeam(),
 										selectedPiece.getPieceRank(), row, col);
 								selectedPiece = null;
-							}else{
+							} else {
 								engine.unSetAPiece(row, col);
 							}
-							
-							updateGilidPieces(gameLabel, true);
-						}else{
-							if(selectedPiece == null){
+
+							updateGilidPieces(gameLabel,
+									engine.getCurrentTurn());
+						} else {
+							if (selectedPiece == null) {
 								Piece piece = engine.board.getPieceAt(row, col);
-								if(piece != null){
+								if (piece != null) {
 									Sound.click.play();
 									selectedPiece = piece;
 									selectedCell = new Point(col, row);
 								}
-							}else{
+							} else {
 								try {
-									engine.play(selectedPiece.getTeam(), selectedCell.y, selectedCell.x, row, col);
+									engine.play(selectedPiece.getTeam(),
+											selectedCell.y, selectedCell.x,
+											row, col);
 									Sound.click.play();
 								} catch (InvalidMoveException e1) {
 									e1.printStackTrace();
-								}finally{
+								} finally {
 									selectedPiece = null;
 								}
 							}
@@ -166,35 +176,39 @@ public class GamePanel extends JPanel {
 		engine.getMyPieces(true);
 		updateGilidPieces(gameLabel, true);
 
+		updateGrid();
+
 		gameLabel.setComponentZOrder(boardLabel,
 				gameLabel.getComponentCount() - 1);
 		add(gameLabel);
 	}
 
 	private void updateGilidPieces(JLabel gameLabel, boolean team) {
-		for(JButton pb : gilidPieces){
+		for (JButton pb : gilidPieces) {
 			gameLabel.remove(pb);
 		}
 		gilidPieces.clear();
-		
+
 		int j;
 		for (int i = 0; i < 8; i++) {
 			j = i + 1;
-			if(engine.hasThisPiece(i)){
-				JButton piece = PaintPieces(20, j * 50, team ? "white" : "black", i);
+			if (engine.hasThisPiece(i)) {
+				JButton piece = PaintPieces(20, j * 50, team ? "white"
+						: "black", i);
 				gilidPieces.add(piece);
 				gameLabel.add(piece);
 			}
 		}
 		for (int i = 8; i < 15; i++) {
 			j = i - 7;
-			if(engine.hasThisPiece(i)){
-				JButton piece = PaintPieces(715, j * 50, team ? "white" : "black", i);
+			if (engine.hasThisPiece(i)) {
+				JButton piece = PaintPieces(715, j * 50, team ? "white"
+						: "black", i);
 				gilidPieces.add(piece);
 				gameLabel.add(piece);
 			}
 		}
-		
+
 		gameLabel.invalidate();
 		gameLabel.repaint();
 	}
@@ -210,7 +224,8 @@ public class GamePanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Sound.click.play();
-				selectedPiece = new Piece(true, rank);
+				selectedPiece = new Piece(color.equals("white") ? true : false,
+						rank);
 			}
 		});
 
@@ -228,12 +243,14 @@ public class GamePanel extends JPanel {
 				JButton button = grid[x][y];
 				if (piece != null) {
 					ImageIcon image = null;
-					if(engine.getCurrentTurn() == piece.getTeam()){
+					if (engine.getCurrentTurn() == piece.getTeam()) {
 						image = new ImageIcon(getImagePath(
-							piece.getTeam() ? "white" : "black",
-							piece.getPieceRank()));
-					}else{
-						image = new ImageIcon("res/" + (piece.getTeam() ? "white" : "black") + "piece.png");
+								piece.getTeam() ? "white" : "black",
+								piece.getPieceRank()));
+					} else {
+						image = new ImageIcon("res/"
+								+ (piece.getTeam() ? "white" : "black")
+								+ "piece.png");
 					}
 					button.setIcon(image);
 				} else {
@@ -241,10 +258,9 @@ public class GamePanel extends JPanel {
 				}
 			}
 		}
-		
-		if(engine.isPieceListEmpty()) {
+
+		if (engine.isPieceListEmpty()) {
 			done.setEnabled(true);
-			placementPhase = false;
 		} else {
 			done.setEnabled(false);
 		}
