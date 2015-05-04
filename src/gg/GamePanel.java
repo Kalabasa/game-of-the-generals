@@ -234,7 +234,7 @@ public class GamePanel extends JPanel {
 							piece.getTeam() ? "white" : "black",
 							piece.getPieceRank()));
 					}else{
-						image = new ImageIcon("res/blackpiece.png");
+						image = new ImageIcon("res/" + (piece.getTeam() ? "white" : "black") + "piece.png");
 					}
 					button.setIcon(image);
 				} else {
