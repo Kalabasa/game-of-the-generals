@@ -37,14 +37,16 @@ public class GamePanel extends JPanel {
 				boardBg.getIconHeight());
 		gameLabel.add(boardLabel);
 
+		// GET MAH PIECES
+		engine.getMyPieces(true);
 		int j;
 		for (int i = 0; i < 8; i++) {
 			j = i + 1;
-			gameLabel.add(PaintPieces(20, j * 50, "black", i));
+			gameLabel.add(PaintPieces(20, j * 50, "white", i));
 		}
 		for (int i = 8; i < 15; i++) {
 			j = i - 7;
-			gameLabel.add(PaintPieces(715, j * 50, "black", i));
+			gameLabel.add(PaintPieces(715, j * 50, "white", i));
 		}
 		
 		//Set up a return button
@@ -69,7 +71,7 @@ public class GamePanel extends JPanel {
 		final ImageIcon onSoundButton = new ImageIcon("res/sounds.png");
 		final ImageIcon offSoundButton = new ImageIcon("res/nosounds.png");
 
-		JButton sound = new JButton(onSoundButton);
+		final JButton sound = new JButton(onSoundButton);
 		sound.setContentAreaFilled(false);
 		sound.setBorderPainted(false);
 		sound.setBorder(null);
@@ -142,7 +144,7 @@ public class GamePanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Sound.click.play();
-				selectedPiece = new Piece(false, rank);
+				selectedPiece = new Piece(true, rank);
 			}
 		});
 
@@ -159,9 +161,14 @@ public class GamePanel extends JPanel {
 				Piece piece = engine.board.getPieceAt(y, x);
 				JButton button = grid[x][y];
 				if (piece != null) {
-					ImageIcon image = new ImageIcon(getImagePath(
+					ImageIcon image = null;
+					if(engine.getCurrentTurn() == piece.getTeam()){
+						image = new ImageIcon(getImagePath(
 							piece.getTeam() ? "white" : "black",
 							piece.getPieceRank()));
+					}else{
+						image = new ImageIcon("res/blackpiece.png");
+					}
 					button.setIcon(image);
 				} else {
 					button.setIcon(null);
