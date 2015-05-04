@@ -106,7 +106,6 @@ public class GamePanel extends JPanel {
 		
 		gameLabel.add(done);
 		
-		
 		Music.play("Omens.mp3");
 
 		// Set up grid of buttons
