@@ -107,6 +107,7 @@ public class GamePanel extends JPanel {
 				} else {
 					engine.setCurrentTurn(true);
 					updateGrid();
+					placementPhase = false;
 					// ready to play
 				}
 			}
@@ -140,7 +141,9 @@ public class GamePanel extends JPanel {
 										selectedPiece.getPieceRank(), row, col);
 								selectedPiece = null;
 							} else {
-								engine.unSetAPiece(row, col);
+								if(engine.board.getPieceAt(row, col).getTeam() == engine.getCurrentTurn()){
+									engine.unSetAPiece(row, col);
+								}
 							}
 
 							updateGilidPieces(gameLabel,
