@@ -14,11 +14,10 @@ public class GamePanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	private Engine engine;
-	
+
 	private JButton grid[][] = new JButton[9][8];
 
 	private Piece selectedPiece = null;
-	
 
 	public GamePanel(final MainFrame mainFrame) {
 		super(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -46,14 +45,15 @@ public class GamePanel extends JPanel {
 		}
 
 		// Set up grid of buttons
-		for(int x=0; x<9; x++){
-			for(int y=0; y<8; y++){
+		for (int x = 0; x < 9; x++) {
+			for (int y = 0; y < 8; y++) {
 				JButton tileButton = grid[x][y] = new JButton();
-				tileButton.setBounds(
-					boardLabel.getBounds().x + 8 + x * 64,
-					boardLabel.getBounds().y + 8 + y * 64
-						+ (y >= 4 ? 4 : 0),
-					64, 64);
+				tileButton.setOpaque(false);
+				tileButton.setContentAreaFilled(false);
+				tileButton.setBorderPainted(false);
+				tileButton.setBounds(boardLabel.getBounds().x + 8 + x * 64,
+						boardLabel.getBounds().y + 8 + y * 64
+								+ (y >= 4 ? 4 : 0), 64, 64);
 				gameLabel.add(tileButton);
 
 				final int row = y;
@@ -62,10 +62,11 @@ public class GamePanel extends JPanel {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						// TESTCOED
-						if(selectedPiece != null){
-							engine.setAPiece(selectedPiece.getTeam(), selectedPiece.getPieceRank(), row, col);
+						if (selectedPiece != null) {
+							engine.setAPiece(selectedPiece.getTeam(),
+									selectedPiece.getPieceRank(), row, col);
 						}
-						
+
 						updateGrid();
 					}
 				});
@@ -99,15 +100,17 @@ public class GamePanel extends JPanel {
 		return "res/" + color + "piece" + rank + ".png";
 	}
 
-	public void updateGrid(){
-		for(int x=0; x<9; x++){
-			for(int y=0; y<8; y++){
+	public void updateGrid() {
+		for (int x = 0; x < 9; x++) {
+			for (int y = 0; y < 8; y++) {
 				Piece piece = engine.board.getPieceAt(y, x);
 				JButton button = grid[x][y];
-				if(piece != null){
-					ImageIcon image = new ImageIcon(getImagePath(piece.getTeam() ? "white" : "black", piece.getPieceRank()));
+				if (piece != null) {
+					ImageIcon image = new ImageIcon(getImagePath(
+							piece.getTeam() ? "white" : "black",
+							piece.getPieceRank()));
 					button.setIcon(image);
-				}else{
+				} else {
 					button.setIcon(null);
 				}
 			}
