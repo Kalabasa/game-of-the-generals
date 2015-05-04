@@ -63,8 +63,6 @@ public class GamePanel extends JPanel {
 					public void actionPerformed(ActionEvent e) {
 						// TESTCOED
 						if(selectedPiece != null){
-							System.out.println("SETAPIECE EXECUTED");
-							System.out.println(row + "," + col);
 							engine.setAPiece(selectedPiece.getTeam(), selectedPiece.getPieceRank(), row, col);
 						}
 						
@@ -89,7 +87,6 @@ public class GamePanel extends JPanel {
 		pieceButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("YAAY");
 				Sound.click.play();
 				selectedPiece = new Piece(false, rank);
 			}
@@ -107,11 +104,8 @@ public class GamePanel extends JPanel {
 			for(int y=0; y<8; y++){
 				Piece piece = engine.board.getPieceAt(y, x);
 				JButton button = grid[x][y];
-				System.out.println(y + "," + x);
-				System.out.println(piece == null ? "null" : piece.getPieceRank());
 				if(piece != null){
 					ImageIcon image = new ImageIcon(getImagePath(piece.getTeam() ? "white" : "black", piece.getPieceRank()));
-					System.out.println("SETICON YES");
 					button.setIcon(image);
 				}else{
 					button.setIcon(null);
