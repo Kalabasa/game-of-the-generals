@@ -152,6 +152,8 @@ public class GamePanel extends JPanel {
 									Sound.click.play();
 								} catch (InvalidMoveException e1) {
 									e1.printStackTrace();
+								}finally{
+									selectedPiece = null;
 								}
 							}
 						}
