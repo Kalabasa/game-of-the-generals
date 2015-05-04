@@ -8,7 +8,9 @@ public class Engine {
 	boolean isFinished;
 	boolean winner; // 1 = white, 0 - black
 	private boolean currentTurn;
-	LinkedList listOfAvailablePieces = new LinkedList<Piece>();
+	LinkedList<Piece> listOfAvailablePieces = new LinkedList<Piece>();
+	private final int[] STARTING_PIECES = { 0, 1, 1, 1, 1, 1, 1, 2, 3, 4, 5, 6,
+			7, 8, 9, 10, 11, 12, 13, 14, 14 };
 
 	public Engine() {
 		board = new Board();
@@ -20,15 +22,46 @@ public class Engine {
 		return currentTurn;
 	}
 
-	public LinkedList<Piece> removePieceFromList(int rank) {
-		// Piece temp
-		// listOfAvailablePieces.re
-		return null;
+	public LinkedList<Piece> getListOfAvailablePieces() {
+		return listOfAvailablePieces;
+	}
+
+	public void removePieceFromList(int rank) {
+		for (Piece p : listOfAvailablePieces) {
+			if (p.getPieceRank() == rank) {
+				listOfAvailablePieces.remove(p);
+			}
+		}
+	}
+
+	public void getMyPieces(boolean team) {
+		for (int i = 0; i < STARTING_PIECES.length; i++) {
+			Piece newPiece = new Piece(team, STARTING_PIECES[i]);
+			listOfAvailablePieces.add(newPiece);
+		}
+
+	}
+
+	public boolean isPieceListEmpty() {
+		return listOfAvailablePieces.isEmpty();
+	}
+
+	private boolean hasThisPiece(int rank) {
+		for (Piece p : listOfAvailablePieces) {
+			if (p.getPieceRank() == rank) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public boolean setAPiece(boolean team, int rank, int row, int col) {
+		if (!hasThisPiece(rank)) {
+			return false;
+		}
 		if (validPlacement(team, row, col)) {
 			board.initializePiece(team, rank, row, col);
+			removePieceFromList(rank);
 			return true;
 		} else {
 			return false;
