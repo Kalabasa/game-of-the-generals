@@ -86,6 +86,8 @@ public class MenuPanel extends JPanel {
 			}
 		});
 
+		Music.play("March of May_3.mp3");
+
 		menuLabel.add(start);
 		menuLabel.add(exit);
 		menuLabel.add(sound);

@@ -18,6 +18,8 @@ public class GamePanel extends JPanel {
 	private JButton grid[][] = new JButton[9][8];
 
 	private Piece selectedPiece = null;
+	
+	private boolean placementPhase = true;
 
 	public GamePanel(final MainFrame mainFrame) {
 		super(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -44,6 +46,9 @@ public class GamePanel extends JPanel {
 			gameLabel.add(PaintPieces(715, j * 50, "black", i));
 		}
 
+		
+		Music.play("Omens.mp3");
+
 		// Set up grid of buttons
 		for (int x = 0; x < 9; x++) {
 			for (int y = 0; y < 8; y++) {
@@ -62,7 +67,7 @@ public class GamePanel extends JPanel {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						// TESTCOED
-						if (selectedPiece != null) {
+						if (placementPhase && selectedPiece != null) {
 							Sound.click.play();
 							engine.setAPiece(selectedPiece.getTeam(),
 									selectedPiece.getPieceRank(), row, col);
