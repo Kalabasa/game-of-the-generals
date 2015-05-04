@@ -29,13 +29,18 @@ public class Engine {
 
 	public void removePieceFromList(int rank) {
 		ListIterator<Piece> i = listOfAvailablePieces.listIterator();
-		while(i.hasNext()){
+		while (i.hasNext()) {
 			Piece p = i.next();
 			if (p.getPieceRank() == rank) {
 				i.remove();
 				break;
 			}
 		}
+	}
+
+	public void addPieceToList(int rank) {
+		Piece p = new Piece(true, rank);
+		listOfAvailablePieces.add(p);
 	}
 
 	public void getMyPieces(boolean team) {
@@ -70,6 +75,17 @@ public class Engine {
 		} else {
 			return false;
 		}
+	}
+
+	public boolean unSetAPiece(int row, int col) {
+		if (board.getPieceAt(row, col) == null) {
+			return false;
+		}
+
+		int rank = board.getPieceAt(row, col).getPieceRank();
+		addPieceToList(rank);
+		board.removePieceFromBoard(row, col);
+		return true;
 	}
 
 	private boolean validPlacement(boolean team, int row, int col) {
