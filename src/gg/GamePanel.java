@@ -1,7 +1,10 @@
 package gg;
 
+
 import java.awt.Color;
+import gg.Engine.InvalidMoveException;
 import java.awt.FlowLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
@@ -22,6 +25,7 @@ public class GamePanel extends JPanel {
 	private List<JButton> gilidPieces = new LinkedList<>();
 
 	private Piece selectedPiece = null;
+	private Point selectedCell = null;
 
 	private boolean placementPhase = true;
 	
@@ -134,6 +138,22 @@ public class GamePanel extends JPanel {
 							}
 							
 							updateGilidPieces(gameLabel, true);
+						}else{
+							if(selectedPiece == null){
+								Piece piece = engine.board.getPieceAt(row, col);
+								if(piece != null){
+									Sound.click.play();
+									selectedPiece = piece;
+									selectedCell = new Point(col, row);
+								}
+							}else{
+								try {
+									engine.play(selectedPiece.getTeam(), selectedCell.y, selectedCell.x, row, col);
+									Sound.click.play();
+								} catch (InvalidMoveException e1) {
+									e1.printStackTrace();
+								}
+							}
 						}
 
 						updateGrid();
