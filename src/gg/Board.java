@@ -18,7 +18,7 @@ public class Board {
 	private void clearBoard() {
 		for (int i = 0; i < HEIGHT; i++) {
 			for (int j = 0; j < WIDTH; j++) {
-				piece[i][j] = null;
+				removePieceFromBoard(i, j);
 			}
 		}
 	}
@@ -35,12 +35,12 @@ public class Board {
 			int result = didChallengerWin(row, col, newRow, newCol);
 			if (result == 1) { // challenger won
 				piece[newRow][newCol] = piece[row][col];
-				piece[row][col] = null;
+				removePieceFromBoard(row, col);
 			} else if (result == -1) { // defender won
-				piece[row][col] = null;
+				removePieceFromBoard(row, col);
 			} else { // draw
-				piece[newRow][newCol] = null;
-				piece[row][col] = null;
+				removePieceFromBoard(newRow, newCol);
+				removePieceFromBoard(row, col);
 			}
 		}
 	}
@@ -66,6 +66,10 @@ public class Board {
 		} else {
 			return -1;
 		}
+	}
+
+	public void removePieceFromBoard(int row, int col) {
+		piece[row][col] = null;
 	}
 
 	public int getWIDTH() {
