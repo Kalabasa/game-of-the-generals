@@ -18,6 +18,8 @@ public class GamePanel extends JPanel {
 	private JButton grid[][] = new JButton[9][8];
 
 	private Piece selectedPiece = null;
+	
+	
 
 	public GamePanel(final MainFrame mainFrame) {
 		super(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -43,6 +45,52 @@ public class GamePanel extends JPanel {
 			j = i - 7;
 			gameLabel.add(PaintPieces(715, j * 50, "black", i));
 		}
+		
+		//Set up a return button
+		ImageIcon returnButton = new ImageIcon("res/return2.png");
+		
+		JButton returnBut = new JButton(returnButton);
+		returnBut.setContentAreaFilled(false);
+		returnBut.setBorderPainted(false);
+		returnBut.setBorder(null);
+		returnBut.setBounds(25, 500, returnButton.getIconWidth(),
+				returnButton.getIconHeight());
+		returnBut.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				mainFrame.returnToMainMenu();
+			}
+		});
+		
+		gameLabel.add(returnBut);
+		
+		//Set up a sound button
+		final ImageIcon onSoundButton = new ImageIcon("res/sounds.png");
+		final ImageIcon offSoundButton = new ImageIcon("res/nosounds.png");
+
+		JButton sound = new JButton(onSoundButton);
+		sound.setContentAreaFilled(false);
+		sound.setBorderPainted(false);
+		sound.setBorder(null);
+		sound.setBounds(725, 500, onSoundButton.getIconWidth(),
+				onSoundButton.getIconHeight());
+		sound.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Music.toggleMute();
+				Sound.toggleMute();
+				Sound.click.play();
+
+				if (Sound.isMuted()) {
+					sound.setIcon(offSoundButton);
+				} else {
+					sound.setIcon(onSoundButton);
+				}
+			}
+		});
+		
+		gameLabel.add(sound);
+		
 
 		// Set up grid of buttons
 		for (int x = 0; x < 9; x++) {
