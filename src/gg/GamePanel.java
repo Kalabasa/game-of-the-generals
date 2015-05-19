@@ -16,31 +16,33 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel {
-	
+
 	public class TurnPanel extends JPanel {
 		private static final long serialVersionUID = 1L;
-		
+
 		private JLabel text;
 		private JButton button;
-		
-		public TurnPanel(ActionListener action){
+
+		public TurnPanel(ActionListener action) {
 			text = new JLabel();
 			button = new JButton("OK");
 			button.addActionListener(action);
+
 			add(text);
 			add(button);
 		}
-		
-		public void setTurn(boolean turn){
+
+		public void setTurn(boolean turn) {
+			this.setBackground((turn ? Color.WHITE : Color.BLACK));
 			text.setText((turn ? "White" : "Black") + " turn!");
 		}
-		
+
 	}
 
 	private static final long serialVersionUID = 1L;
 
 	private Engine engine;
-	
+
 	private TurnPanel turnPanel;
 	private MainFrame mainFrame;
 
@@ -59,7 +61,7 @@ public class GamePanel extends JPanel {
 		this.mainFrame = mainFrame;
 
 		engine = new Engine();
-		
+
 		turnPanel = new TurnPanel(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -67,10 +69,10 @@ public class GamePanel extends JPanel {
 			}
 		});
 
-		ImageIcon gameBg = new ImageIcon("res/gamebg.png");
+		ImageIcon gameBg = new ImageIcon(getClass().getResource("/gamebg.png"));
 		final JLabel gameLabel = new JLabel(gameBg);
 
-		ImageIcon boardBg = new ImageIcon("res/board.png");
+		ImageIcon boardBg = new ImageIcon(getClass().getResource("/board.png"));
 		JLabel boardLabel = new JLabel(boardBg);
 		boardLabel.setBounds((800 - boardBg.getIconWidth()) / 2,
 				(600 - boardBg.getIconHeight()) / 2, boardBg.getIconWidth(),
@@ -78,7 +80,8 @@ public class GamePanel extends JPanel {
 		gameLabel.add(boardLabel);
 
 		// Set up a return button
-		ImageIcon returnButton = new ImageIcon("res/return2.png");
+		ImageIcon returnButton = new ImageIcon(getClass().getResource(
+				"/return2.png"));
 
 		JButton returnBut = new JButton(returnButton);
 		returnBut.setContentAreaFilled(false);
@@ -96,8 +99,10 @@ public class GamePanel extends JPanel {
 		gameLabel.add(returnBut);
 
 		// Set up a sound button
-		final ImageIcon onSoundButton = new ImageIcon("res/sounds.png");
-		final ImageIcon offSoundButton = new ImageIcon("res/nosounds.png");
+		final ImageIcon onSoundButton = new ImageIcon(getClass().getResource(
+				"/sounds.png"));
+		final ImageIcon offSoundButton = new ImageIcon(getClass().getResource(
+				"/nosounds.png"));
 
 		final JButton sound = new JButton(onSoundButton);
 		sound.setContentAreaFilled(false);
@@ -135,7 +140,7 @@ public class GamePanel extends JPanel {
 					engine.getMyPieces(false);
 					updateGilidPieces(gameLabel, false);
 					updateGrid();
-					
+
 					showTurnPanel();
 				} else {
 					engine.setCurrentTurn(true);
@@ -177,7 +182,9 @@ public class GamePanel extends JPanel {
 										selectedPiece.getPieceRank(), row, col);
 								selectedPiece = null;
 							} else {
-								if(piece != null && piece.getTeam() == engine.getCurrentTurn()){
+								if (piece != null
+										&& piece.getTeam() == engine
+												.getCurrentTurn()) {
 									engine.unSetAPiece(row, col);
 								}
 							}
@@ -221,8 +228,8 @@ public class GamePanel extends JPanel {
 				gameLabel.getComponentCount() - 1);
 		add(gameLabel);
 	}
-	
-	private void showTurnPanel(){
+
+	private void showTurnPanel() {
 		mainFrame.setPanel(turnPanel);
 		turnPanel.setTurn(engine.getCurrentTurn());
 	}
@@ -258,7 +265,8 @@ public class GamePanel extends JPanel {
 	}
 
 	public JButton PaintPieces(int x, int y, final String color, final int rank) {
-		ImageIcon pieceIcon = new ImageIcon(getImagePath(color, rank));
+		ImageIcon pieceIcon = new ImageIcon(getClass().getResource(
+				getImagePath(color, rank)));
 		JButton pieceButton = new JButton(pieceIcon);
 		pieceButton.setContentAreaFilled(false);
 		pieceButton.setBorderPainted(false);
@@ -277,7 +285,7 @@ public class GamePanel extends JPanel {
 	}
 
 	private String getImagePath(String color, int rank) {
-		return "res/" + color + "piece" + rank + ".png";
+		return "/" + color + "piece" + rank + ".png";
 	}
 
 	public void updateGrid() {
@@ -288,13 +296,13 @@ public class GamePanel extends JPanel {
 				if (piece != null) {
 					ImageIcon image = null;
 					if (engine.getCurrentTurn() == piece.getTeam()) {
-						image = new ImageIcon(getImagePath(
-								piece.getTeam() ? "white" : "black",
-								piece.getPieceRank()));
+						image = new ImageIcon(getClass().getResource(
+								getImagePath(piece.getTeam() ? "white"
+										: "black", piece.getPieceRank())));
 					} else {
-						image = new ImageIcon("res/"
-								+ (piece.getTeam() ? "white" : "black")
-								+ "piece.png");
+						image = new ImageIcon(getClass().getResource(
+								"/" + (piece.getTeam() ? "white" : "black")
+										+ "piece.png"));
 					}
 					button.setIcon(image);
 				} else {

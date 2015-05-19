@@ -15,12 +15,14 @@ public class InstructionsPanel extends JPanel {
 
 	public InstructionsPanel(final MainFrame mainFrame) {
 		super(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		
-		ImageIcon instructionsBg1 = new ImageIcon("res/playingpieces.png");
+
+		ImageIcon instructionsBg1 = new ImageIcon(getClass().getResource(
+				"/playingpieces.png"));
 		JLabel instructionsLabel1 = new JLabel(instructionsBg1);
 		add(instructionsLabel1);
-		
-		ImageIcon returnButton = new ImageIcon("res/return.png");
+
+		ImageIcon returnButton = new ImageIcon(getClass().getResource(
+				"/return.png"));
 		JButton returnBut = new JButton(returnButton);
 		returnBut.setContentAreaFilled(false);
 		returnBut.setBorderPainted(false);
@@ -33,8 +35,9 @@ public class InstructionsPanel extends JPanel {
 				mainFrame.returnToMainMenu();
 			}
 		});
-		
-		ImageIcon nextButton = new ImageIcon("res/next.png");
+
+		ImageIcon nextButton = new ImageIcon(getClass()
+				.getResource("/next.png"));
 		JButton next = new JButton(nextButton);
 		next.setContentAreaFilled(false);
 		next.setBorderPainted(false);
@@ -47,7 +50,7 @@ public class InstructionsPanel extends JPanel {
 				mainFrame.instructions2();
 			}
 		});
-		
+
 		instructionsLabel1.add(returnBut);
 		instructionsLabel1.add(next);
 	}

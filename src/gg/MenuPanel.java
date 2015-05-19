@@ -18,10 +18,11 @@ public class MenuPanel extends JPanel {
 	public MenuPanel(final MainFrame mainFrame) {
 		super(new FlowLayout(FlowLayout.CENTER, 0, 0));
 
-		ImageIcon menuBg = new ImageIcon("res/menubg.png");
+		ImageIcon menuBg = new ImageIcon(getClass().getResource("/menubg.png"));
 		JLabel menuLabel = new JLabel(menuBg);
 
-		ImageIcon startButton = new ImageIcon("res/start.png");
+		ImageIcon startButton = new ImageIcon(getClass().getResource(
+				"/start.png"));
 		start = new JButton(startButton);
 		start.setBorder(null);
 		start.setBounds(0, 350, startButton.getIconWidth(),
@@ -34,7 +35,8 @@ public class MenuPanel extends JPanel {
 			}
 		});
 
-		ImageIcon exitButton = new ImageIcon("res/exit.png");
+		ImageIcon exitButton = new ImageIcon(getClass()
+				.getResource("/exit.png"));
 		exit = new JButton(exitButton);
 		exit.setBorder(null);
 		exit.setBounds(0, 420, exitButton.getIconWidth(),
@@ -47,8 +49,10 @@ public class MenuPanel extends JPanel {
 			}
 		});
 
-		final ImageIcon onSoundButton = new ImageIcon("res/sounds.png");
-		final ImageIcon offSoundButton = new ImageIcon("res/nosounds.png");
+		final ImageIcon onSoundButton = new ImageIcon(getClass().getResource(
+				"/sounds.png"));
+		final ImageIcon offSoundButton = new ImageIcon(getClass().getResource(
+				"/nosounds.png"));
 
 		sound = new JButton(onSoundButton);
 		sound.setContentAreaFilled(false);
@@ -71,7 +75,8 @@ public class MenuPanel extends JPanel {
 			}
 		});
 
-		ImageIcon instructionsButton = new ImageIcon("res/howto.png");
+		ImageIcon instructionsButton = new ImageIcon(getClass().getResource(
+				"/howto.png"));
 		instructions = new JButton(instructionsButton);
 		instructions.setContentAreaFilled(false);
 		instructions.setBorderPainted(false);
