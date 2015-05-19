@@ -16,10 +16,33 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel {
+	
+	public class TurnPanel extends JPanel {
+		private static final long serialVersionUID = 1L;
+		
+		private JLabel text;
+		private JButton button;
+		
+		public TurnPanel(ActionListener action){
+			text = new JLabel();
+			button = new JButton("OK");
+			button.addActionListener(action);
+			add(text);
+			add(button);
+		}
+		
+		public void setTurn(boolean turn){
+			text.setText((turn ? "White" : "Black") + " turn!");
+		}
+		
+	}
 
 	private static final long serialVersionUID = 1L;
 
 	private Engine engine;
+	
+	private TurnPanel turnPanel;
+	private MainFrame mainFrame;
 
 	private JButton grid[][] = new JButton[9][8];
 	private List<JButton> gilidPieces = new LinkedList<>();
@@ -33,8 +56,16 @@ public class GamePanel extends JPanel {
 
 	public GamePanel(final MainFrame mainFrame) {
 		super(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		this.mainFrame = mainFrame;
 
 		engine = new Engine();
+		
+		turnPanel = new TurnPanel(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				mainFrame.setPanel(GamePanel.this);
+			}
+		});
 
 		ImageIcon gameBg = new ImageIcon("res/gamebg.png");
 		final JLabel gameLabel = new JLabel(gameBg);
@@ -104,11 +135,15 @@ public class GamePanel extends JPanel {
 					engine.getMyPieces(false);
 					updateGilidPieces(gameLabel, false);
 					updateGrid();
+					
+					showTurnPanel();
 				} else {
 					engine.setCurrentTurn(true);
 					updateGrid();
 					placementPhase = false;
+
 					// ready to play
+					showTurnPanel();
 				}
 			}
 		});
@@ -134,6 +169,7 @@ public class GamePanel extends JPanel {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						// TESTCOED
+						Piece piece = engine.board.getPieceAt(row, col);
 						if (placementPhase) {
 							Sound.click.play();
 							if (selectedPiece != null) {
@@ -141,7 +177,7 @@ public class GamePanel extends JPanel {
 										selectedPiece.getPieceRank(), row, col);
 								selectedPiece = null;
 							} else {
-								if(engine.board.getPieceAt(row, col).getTeam() == engine.getCurrentTurn()){
+								if(piece != null && piece.getTeam() == engine.getCurrentTurn()){
 									engine.unSetAPiece(row, col);
 								}
 							}
@@ -150,7 +186,6 @@ public class GamePanel extends JPanel {
 									engine.getCurrentTurn());
 						} else {
 							if (selectedPiece == null) {
-								Piece piece = engine.board.getPieceAt(row, col);
 								if (piece != null) {
 									Sound.click.play();
 									selectedPiece = piece;
@@ -162,6 +197,7 @@ public class GamePanel extends JPanel {
 											selectedCell.y, selectedCell.x,
 											row, col);
 									Sound.click.play();
+									showTurnPanel();
 								} catch (InvalidMoveException e1) {
 									e1.printStackTrace();
 								} finally {
@@ -184,6 +220,11 @@ public class GamePanel extends JPanel {
 		gameLabel.setComponentZOrder(boardLabel,
 				gameLabel.getComponentCount() - 1);
 		add(gameLabel);
+	}
+	
+	private void showTurnPanel(){
+		mainFrame.setPanel(turnPanel);
+		turnPanel.setTurn(engine.getCurrentTurn());
 	}
 
 	private void updateGilidPieces(JLabel gameLabel, boolean team) {

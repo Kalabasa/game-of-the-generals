@@ -27,7 +27,7 @@ public class MainFrame extends JFrame {
 		setVisible(true);
 	}
 	
-	private void setPanel(JPanel panel){
+	public void setPanel(JPanel panel){
 		if(currentPanel != null)
 			remove(currentPanel);
 		currentPanel = panel;
