@@ -130,13 +130,12 @@ public class Engine {
 
 		if (isMovePossible(team, row, col, newRow, newCol)) {
 
-			if (board.getPieceAt(row, col).getPieceRank() == 0) { // check kung
-																	// dulo na
+			if (board.getPieceAt(row, col).getPieceRank() == 0) { 
 				isChallengerFlag = true;
 				if ((team && newRow == board.getHEIGHT() - 1) || (!team
-						&& newRow == 0)) {
+						&& newRow == 0)) { // check kung dulo na
 					if (board.getPieceAt(newRow, newCol + 1) == null || board
-								.getPieceAt(newRow, newCol - 1) == null) {
+								.getPieceAt(newRow, newCol - 1) == null) { // check kung may katabi
 						isFinished = true;
 						winner = team;
 					} else {
