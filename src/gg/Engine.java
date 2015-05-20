@@ -133,12 +133,16 @@ public class Engine {
 			if (board.getPieceAt(row, col).getPieceRank() == 0) { // check kung
 																	// dulo na
 				isChallengerFlag = true;
-				if ((team && newRow == board.getHEIGHT() - 1 || !team
-						&& newRow == 0)
-						&& (board.getPieceAt(newRow, newCol + 1) != null || board
-								.getPieceAt(newRow, newCol - 1) != null)) {
-					// TODO insert prompt here
-					return;
+				if ((team && newRow == board.getHEIGHT() - 1) || (!team
+						&& newRow == 0)) {
+					if (board.getPieceAt(newRow, newCol + 1) == null || board
+								.getPieceAt(newRow, newCol - 1) == null) {
+						isFinished = true;
+						winner = team;
+					} else {
+						throw new InvalidMoveException(
+								"You can't move to that position since there are enemies waiting.");
+					}
 				}
 			}
 			if (board.getPieceAt(newRow, newCol) != null
