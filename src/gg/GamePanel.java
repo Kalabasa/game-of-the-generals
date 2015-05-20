@@ -113,7 +113,7 @@ public class GamePanel extends JPanel {
 		winPanel = new WinPanel(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				mainFrame.setPanel(GamePanel.this);
+				mainFrame.returnToMainMenu();
 			}
 		});
 
@@ -252,7 +252,11 @@ public class GamePanel extends JPanel {
 											selectedCell.y, selectedCell.x,
 											row, col);
 									Sound.click.play();
-									showTurnPanel();
+									if (engine.isFinished()) {
+										showWinPanel();
+									} else {
+										showTurnPanel();
+									}
 								} catch (InvalidMoveException e1) {
 									e1.printStackTrace();
 								} finally {
@@ -284,7 +288,7 @@ public class GamePanel extends JPanel {
 
 	private void showWinPanel() {
 		mainFrame.setPanel(winPanel);
-		winPanel.setWinner(engine.getCurrentTurn());
+		winPanel.setWinner(engine.getWinner());
 	}
 
 	private void updateGilidPieces(JLabel gameLabel, boolean team) {

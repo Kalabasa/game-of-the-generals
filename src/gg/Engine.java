@@ -7,6 +7,7 @@ public class Engine {
 
 	Board board;
 	boolean isFinished;
+
 	boolean winner; // 1 = white, 0 - black
 	private boolean currentTurn;
 	LinkedList<Piece> listOfAvailablePieces = new LinkedList<Piece>();
@@ -25,6 +26,14 @@ public class Engine {
 
 	public void setCurrentTurn(boolean currentTurn) {
 		this.currentTurn = currentTurn;
+	}
+
+	public boolean getWinner() {
+		return winner;
+	}
+
+	public boolean isFinished() {
+		return isFinished;
 	}
 
 	public LinkedList<Piece> getListOfAvailablePieces() {
@@ -126,16 +135,27 @@ public class Engine {
 		System.out.println(row + " " + col + " to " + newRow + " " + newCol);
 		boolean isChallengerFlag = false, isDefenderFlag = false;
 
-		// TODO get user input
-
 		if (isMovePossible(team, row, col, newRow, newCol)) {
 
-			if (board.getPieceAt(row, col).getPieceRank() == 0) { 
+
+			if (board.getPieceAt(row, col).getPieceRank() == 0) {
 				isChallengerFlag = true;
-				if ((team && newRow == board.getHEIGHT() - 1) || (!team
-						&& newRow == 0)) { // check kung dulo na
-					if (board.getPieceAt(newRow, newCol + 1) == null || board
-								.getPieceAt(newRow, newCol - 1) == null) { // check kung may katabi
+				if ((team && newRow == board.getHEIGHT() - 1)
+						|| (!team && newRow == 0)) { // check kung dulo na
+					if (
+							(
+									(newCol + 1 < board.getHEIGHT()) 
+									&& (board.getPieceAt(newRow, newCol + 1) == null
+									|| board.getPieceAt(newRow, newCol + 1).getTeam() == team)
+							)
+							|| 
+							(
+									(newCol - 1 >= 0)
+									&& (board.getPieceAt(newRow, newCol - 1) == null
+									|| board.getPieceAt(newRow, newCol - 1).getTeam() == team)
+							)
+						) { // check kung may katabing kalaban
+
 						isFinished = true;
 						winner = team;
 					} else {
