@@ -135,19 +135,23 @@ public class Engine {
 		System.out.println(row + " " + col + " to " + newRow + " " + newCol);
 		boolean isChallengerFlag = false, isDefenderFlag = false;
 
-		// TODO get user input
-
 		if (isMovePossible(team, row, col, newRow, newCol)) {
 
-			if (board.getPieceAt(row, col).getPieceRank() == 0) { // check kung
-																	// dulo na
+			if (board.getPieceAt(row, col).getPieceRank() == 0) {
 				isChallengerFlag = true;
-				if ((team && newRow == board.getHEIGHT() - 1 || !team
-						&& newRow == 0)
-						&& (board.getPieceAt(newRow, newCol + 1) != null || board
-								.getPieceAt(newRow, newCol - 1) != null)) {
-					// TODO insert prompt here
-					return;
+				if ((team && newRow == board.getHEIGHT() - 1)
+						|| (!team && newRow == 0)) { // check kung dulo na
+					if (board.getPieceAt(newRow, newCol + 1) == null
+							|| board.getPieceAt(newRow, newCol - 1) == null) { // check
+																				// kung
+																				// may
+																				// katabi
+						isFinished = true;
+						winner = team;
+					} else {
+						throw new InvalidMoveException(
+								"You can't move to that position since there are enemies waiting.");
+					}
 				}
 			}
 			if (board.getPieceAt(newRow, newCol) != null
