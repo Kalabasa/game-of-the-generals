@@ -48,11 +48,43 @@ public class GamePanel extends JPanel {
 
 	}
 
+	public class WinPanel extends JPanel {
+		private static final long serialVersionUID = 1L;
+
+		private JLabel text;
+		private JButton button;
+
+		public WinPanel(ActionListener action) {
+			super(new FlowLayout(FlowLayout.CENTER, 0, 0));
+			text = new JLabel();
+
+			button = new JButton();
+			button.setBorder(null);
+			button.addActionListener(action);
+
+			add(text);
+		}
+
+		public void setWinner(boolean winner) {
+			ImageIcon winBg = new ImageIcon(getClass().getResource(
+					(winner ? "/winwhite.png" : "/winblacck.png")));
+			text.setIcon(winBg);
+			ImageIcon playAgainButton = new ImageIcon(getClass().getResource(
+					(winner ? "/playagainwhite.png" : "/playagainblack.png")));
+			button.setIcon(playAgainButton);
+			button.setBounds(0, 350, playAgainButton.getIconWidth(),
+					playAgainButton.getIconHeight());
+			text.add(button);
+		}
+
+	}
+
 	private static final long serialVersionUID = 1L;
 
 	private Engine engine;
 
 	private TurnPanel turnPanel;
+	private WinPanel winPanel;
 	private MainFrame mainFrame;
 
 	private JButton grid[][] = new JButton[9][8];
@@ -72,6 +104,13 @@ public class GamePanel extends JPanel {
 		engine = new Engine();
 
 		turnPanel = new TurnPanel(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				mainFrame.setPanel(GamePanel.this);
+			}
+		});
+
+		winPanel = new WinPanel(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				mainFrame.setPanel(GamePanel.this);
@@ -241,6 +280,11 @@ public class GamePanel extends JPanel {
 	private void showTurnPanel() {
 		mainFrame.setPanel(turnPanel);
 		turnPanel.setTurn(engine.getCurrentTurn());
+	}
+
+	private void showWinPanel() {
+		mainFrame.setPanel(winPanel);
+		winPanel.setWinner(engine.getCurrentTurn());
 	}
 
 	private void updateGilidPieces(JLabel gameLabel, boolean team) {
