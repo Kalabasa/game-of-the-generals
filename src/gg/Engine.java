@@ -7,6 +7,7 @@ public class Engine {
 
 	Board board;
 	boolean isFinished;
+
 	boolean winner; // 1 = white, 0 - black
 	private boolean currentTurn;
 	LinkedList<Piece> listOfAvailablePieces = new LinkedList<Piece>();
@@ -25,6 +26,14 @@ public class Engine {
 
 	public void setCurrentTurn(boolean currentTurn) {
 		this.currentTurn = currentTurn;
+	}
+
+	public boolean getWinner() {
+		return winner;
+	}
+
+	public boolean isFinished() {
+		return isFinished;
 	}
 
 	public LinkedList<Piece> getListOfAvailablePieces() {
