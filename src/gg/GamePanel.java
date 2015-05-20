@@ -24,17 +24,26 @@ public class GamePanel extends JPanel {
 		private JButton button;
 
 		public TurnPanel(ActionListener action) {
+			super(new FlowLayout(FlowLayout.CENTER, 0, 0));
 			text = new JLabel();
-			button = new JButton("OK");
+
+			button = new JButton();
+			button.setBorder(null);
 			button.addActionListener(action);
 
 			add(text);
-			add(button);
 		}
 
 		public void setTurn(boolean turn) {
-			this.setBackground((turn ? Color.WHITE : Color.BLACK));
-			text.setText((turn ? "White" : "Black") + " turn!");
+			ImageIcon turnBg = new ImageIcon(getClass().getResource(
+					(turn ? "/turnwhite.png" : "/turnblack.png")));
+			text.setIcon(turnBg);
+			ImageIcon okButton = new ImageIcon(getClass().getResource(
+					(turn ? "/okwhite.png" : "/ok.png")));
+			button.setIcon(okButton);
+			button.setBounds(0, 350, okButton.getIconWidth(),
+					okButton.getIconHeight());
+			text.add(button);
 		}
 
 	}
